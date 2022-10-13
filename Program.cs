@@ -6,7 +6,8 @@ namespace Midterm_Project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Library library1 = new Library();
+            library1.DisplayBooksAllInformation(library1.books);
         }
 
         public static void DisplayBooksByTitle()
