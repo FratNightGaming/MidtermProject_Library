@@ -12,10 +12,14 @@ namespace Midterm_Project
         public string Author { get; set; }
 
         public int MyProperty { get; set; }
+        public Status Checked { get; set; }
+
 
         public enum Status
         {
-
+            checkedin,
+            checkedout,
+            hold
         }
     }
 }
