@@ -8,6 +8,106 @@ namespace Midterm_Project
 {
     public class Library
     {
+        public List<Book> books { get; set; } = new List<Book>();
+        public List<Book> booksCheckedOut { get; set; } = new List<Book>();
+        public List<Book> booksAvailable { get; set; } = new List<Book>();
+
+        public Library()
+        {
+            books.Add(new Book("Harry Potter", "JK Rowling", 250, Book.Genre.Fantasy, Book.Status.Available));
+        }
+
+        public void DisplayBooksAllInformation(List<Book> books)
+        {
+            Console.WriteLine("\nBooks On Display");
+            
+            for (int i = 0; i < books.Count; i++)
+            {
+                Console.WriteLine($"{i, -10} Title: {books[i].Title, 10}, Author: {books[i].Author, 10}, Genre: {books[i].genre, 10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
+                //DisplayIndividualBookInformation(books[i]);
+            }
+
+            //Continue function
+        }
+
+        public void SearchBookByAuthor(List<Book> books, string author)
+        {
+            int bookCount = 0;
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                if (books[i].Author == author)
+                {
+                    Console.WriteLine($"\n{author} found - List of books by {author}");
+                    DisplayIndividualBookInformation(books[i]);
+                    bookCount++;
+                }
+            }
+
+            if (bookCount == 0)
+            {
+                Console.WriteLine("Author not found.");
+            }
+
+            //Continue function
+
+        }
+
+        public void SearchBookByTitle(List<Book> books, string title)
+        {
+            int bookCount = 0;
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                if (books[i].Author == title)
+                {
+                    Console.WriteLine($"\n{title} found:");
+                    DisplayIndividualBookInformation(books[i]);
+                    bookCount++;
+                }
+
+                //use linq to instantiate list based on criteria, then loop through each book found and display info
+            }
+
+            if (bookCount == 0)
+            {
+                Console.WriteLine($"{title} not found.");
+            }
+            //Continue function
+
+        }
+
+        public void SearchBookByGenre(List<Book> books, string title)
+        {
+            int bookCount = 0;
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                if (books[i].Author == title)
+                {
+                    Console.WriteLine($"\n{title} found:");
+                    DisplayIndividualBookInformation(books[i]);
+                    bookCount++;
+                }
+
+                //use linq to instantiate list based on criteria, then loop through each book found and display infor
+            }
+
+            if (bookCount == 0)
+            {
+                Console.WriteLine($"{title} not found.");
+            }
+            //Continue function
+
+        }
+
+        public void DisplayIndividualBookInformation(Book book)
+        {
+            Console.WriteLine($"\nTitle: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}\n");
+
+            //Continue function
+
+        }
 
 
 

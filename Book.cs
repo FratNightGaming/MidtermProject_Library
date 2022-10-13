@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +11,36 @@ namespace Midterm_Project
     {
         public string Title { get; set; }
         public string Author { get; set; }
-
+        public int NumberOfPages { get; set; }
+        public Genre genre { get; set; }
+        public DateTime DueDate { get; set; }
+        public Status status { get; set; }
         public int MyProperty { get; set; }
-        public Status Checked { get; set; }
-
 
         public enum Status
         {
-            checkedin,
-            checkedout,
-            hold
+            Available,
+            Checked_Out,
+            Hold
+        }
+        public enum Genre
+        {
+            Fantasy,
+            Mystery,
+            Horror,
+            Romance,
+            Biography,
+            History,
+            Graphic_Novel
+        }
+
+        public Book(string title, string author, int pages, Genre genre, Status status)
+        {
+            this.Title = title;
+            this.Author = author;
+            this.NumberOfPages = pages;
+            this.genre = genre;
+            this.status = status;
         }
     }
 }
