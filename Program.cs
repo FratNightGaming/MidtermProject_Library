@@ -16,7 +16,7 @@ namespace Midterm_Project
             while (true)
             {
                 string input = Library.GetUserInput("what would you like to do? (1)list books, (2)search, or (3)checkin");
-                
+
                 if (input == "1" || input == "list" || input == "list books")
                 {
                     Library.DisplayBooksAllInformation(library1.books);
@@ -24,7 +24,6 @@ namespace Midterm_Project
 
                     int userInput = -1;
                     while (userInput == -1)
-
                     {
                         try
                         {
@@ -51,7 +50,6 @@ namespace Midterm_Project
                         }
                     }
                 }
-                
                 else if (input == "2" || input == "search")
                 {
                     input = Library.GetUserInput("would you like to search by (1)title, (2)author, or (3)genre");
@@ -63,13 +61,7 @@ namespace Midterm_Project
                     else if (input == "2" || input == "author")
                     {
                         library1.SearchBookByAuthor(library1.books);
-
-                        // asktocheckout again 
                     }
-                    // love to do genres later
-
-						// asktocheckout again 
-
                     else if (input == "3" || input == "genre")
                     {
                         library1.SearchBookByGenre(library1.books);
@@ -77,7 +69,7 @@ namespace Midterm_Project
                 }
                 else if (input == "3" || input == "checkin")
                 {
-                    // checkin method
+                    // checkin method for later
                 }
             }
 
