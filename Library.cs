@@ -209,13 +209,18 @@ namespace Midterm_Project
 
             //use linq to instantiate list based on criteria, then loop through each book found and display info
             booksByGenre = books.Where(b => b.genre == genre).ToList();
-			foreach (Book book in booksByGenre)
+
+            Console.Write("{0,-73} {1,-25} {2,-20} {3,-10} {4,-1} \n",
+                           "Title", "Author", "Genre", "Pages", "Status");
+
+            foreach (Book book in booksByGenre)
 			{
                 bookCount++;
-                Console.Write($"{bookCount})\t");
+                Console.Write($"{bookCount})");
+
                 
+
                 DisplayIndividualBookInformation(book);
-                Console.WriteLine();
             }
 			if (bookCount == 0)
 			{
@@ -253,10 +258,22 @@ namespace Midterm_Project
 
         public void DisplayIndividualBookInformation(Book book)
         {
-            Console.WriteLine($"\nTitle: {book.Title,10}\n" +
+            //will add in column alignment here for better visibility         
+
+                Console.WriteLine("{0,-73} {1,-25} {2,-20} {3,-10} {4,-1}",
+                   
+                    book.Title,
+                    book.Author,
+                    book.genre,
+                    book.NumberOfPages,
+                    book.status);
+
+                //DisplayIndividualBookInformation(books[i]);
+
+           /* Console.WriteLine($"\nTitle: {book.Title,10}\n" +
                 $"\tAuthor: {book.Author,10}\n" +
                 $"\tPages: {book.NumberOfPages}\n" +
-                $"\tStatus: {book.status}\n");
+                $"\tStatus: {book.status}\n");*/
         }
 
         public static void CheckOutBook(Book book)
