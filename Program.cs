@@ -12,7 +12,6 @@ namespace Midterm_Project
             //library1.DisplayBooksAllInformation(library1.books);
 
 
-
             int userInput = -1;
             while (userInput == -1)
 
@@ -49,7 +48,7 @@ namespace Midterm_Project
                 
                 if (input == "1" || input == "list" || input == "list books")
                 {
-                    library1.DisplayBooksAllInformation(library1.books);
+                    Library.DisplayBooksAllInformation(library1.books);
                     // AskToCheckOut() will come when books are printed then will ask y/n - we want as much in method as possible
                 }
                 

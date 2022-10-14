@@ -12,7 +12,7 @@ namespace Midterm_Project
         public List<Book> books { get; set; } = new List<Book>();
         public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
-        public Book Selection { get; set; }
+        public static Book Selection { get; set; }
 
 
 		public Library()
@@ -36,7 +36,7 @@ namespace Midterm_Project
             books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.History, Book.Status.Available));
         }
 
-        public void DisplayBooksAllInformation(List<Book> books)
+        public static void DisplayBooksAllInformation(List<Book> books)
         {
             Console.WriteLine("\nBooks On Display");
 
@@ -128,7 +128,7 @@ namespace Midterm_Project
             {
                 Console.WriteLine("\n{genre} found:");
             }
-            
+
             /*bool booksbyGenre = books.Any(b => b.genre == genre);
             if (booksbyGenre)
             {
@@ -152,7 +152,9 @@ namespace Midterm_Project
                 {
                     DisplayIndividualBookInformation(book);
                 }
-                
+            }
+        }
+
         public void SearchBookByGenre(List<Book> books)
         {
             Genre genre = Book.Genre.Biography;
