@@ -34,17 +34,15 @@ namespace Midterm_Project
             books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.Nonfiction, Book.Status.Available));
             books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.Nonfiction, Book.Status.Available));
             books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.History, Book.Status.Available));
-
-
         }
 
         public void DisplayBooksAllInformation(List<Book> books)
         {
             Console.WriteLine("\nBooks On Display");
-            
+
             for (int i = 0; i < books.Count; i++)
             {
-                Console.WriteLine($"{i+1, -10} Title: {books[i].Title, 10}, Author: {books[i].Author, 10}, Genre: {books[i].genre, 10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
+                Console.WriteLine($"{i + 1,-10} Title: {books[i].Title,10}, Author: {books[i].Author,10}, Genre: {books[i].genre,10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
                 //DisplayIndividualBookInformation(books[i]);
             }
 
@@ -55,15 +53,16 @@ namespace Midterm_Project
         {
             int bookCount = 0;
 
-			string author = GetUserInput("which author are you looking for?");
 
-			bool booksbyAuthor = books.Any(b => b.Author == author);
+            string author = GetUserInput("which author are you looking for?");
+
+
+            bool booksbyAuthor = books.Any(b => b.Author == author);
+
             if (booksbyAuthor)
             {
                 Console.WriteLine($"\n{author.ToUpper()} found:");
             }
-            
-			    
 
             for (int i = 0; i < books.Count; i++)
             {
@@ -235,14 +234,43 @@ namespace Midterm_Project
             }
             else
             {
+              return AskToCheckOut();
+            }
+        }
+        
+        public static string GetUserInput(string msg)
+        {
+            string input = null;
+            try
+            {
+                Console.WriteLine(msg);
+                input = Console.ReadLine();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("that wasnt't a valid input");
+                GetUserInput(msg);
+
+            }
+            if (input == null)
+            {
+                Console.WriteLine("you didn't seem to type anything");
+                GetUserInput(msg);
+            }
+            return input;
+        }
+    }
+
+                return false;
+            }
+            else
+            {
                 Console.WriteLine("that's a y/n question");
 				return AskToCheckOut();
 			}
             Console.WriteLine("out of if");
             return true;
         }
-
-		
 
         public static string GetUserInput(string msg)
 		{
@@ -288,7 +316,6 @@ namespace Midterm_Project
 		}
 	}
 
-    
 }
 /*
  
