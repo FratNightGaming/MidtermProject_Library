@@ -4,14 +4,14 @@ namespace Midterm_Project
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Library library1 = new Library();
 
             library1.DisplayBooksAllInformation(library1.books);
 
 
-            int userInput = -1;;
+            int userInput = -1; ;
             while (userInput == -1)
 
             {
@@ -22,7 +22,7 @@ namespace Midterm_Project
                     if (userInput > 0 && userInput <= library1.books.Count)
                     {
                         Console.WriteLine("test here");
-                        
+                        library1.DisplayIndividualBookInformation(library1.books[userInput -1]);
                     }
                     else
                     {
