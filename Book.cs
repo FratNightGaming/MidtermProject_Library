@@ -12,6 +12,7 @@ namespace Midterm_Project
         public string Title { get; set; }
         public string Author { get; set; }
         public int NumberOfPages { get; set; }
+        public int YearOfPublication { get; set; }
         public Genre genre { get; set; }
         public DateTime DueDate { get; set; }
         public Status status { get; set; }
@@ -30,14 +31,17 @@ namespace Midterm_Project
             Romance,
             Biography,
             History,
+            Science_Fiction,
+            Nonfiction,
             Graphic_Novel
         }
 
-        public Book(string title, string author, int pages, Genre genre, Status status)
+        public Book(string title, string author, int pages, int yearPublicated, Genre genre, Status status)
         {
             this.Title = title;
             this.Author = author;
             this.NumberOfPages = pages;
+            this.YearOfPublication = yearPublicated;
             this.genre = genre;
             this.status = status;
         }
