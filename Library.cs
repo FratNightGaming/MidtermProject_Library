@@ -164,10 +164,22 @@ namespace Midterm_Project
 
             // brings all books found into a list and then prints them
             booksByGenre = books.Where(b => b.genre == genre).ToList();
-			foreach (Book book in booksByGenre)
+
+            Console.Write("{0,-73} {1,-25} {2,-20} {3,-10} {4,-1} \n",
+                           "Title", "Author", "Genre", "Pages", "Status");
+
+            foreach (Book book in booksByGenre)
 			{
-				DisplayIndividualBookInformation(book);
-				bookCount++;
+                bookCount++;
+                Console.Write($"{bookCount})");
+
+                
+
+                DisplayIndividualBookInformation(book);
+            }
+			if (bookCount == 0)
+			{
+				Console.WriteLine($"{genre} not found.");
 			}
 
 			// saying if theres no books or asks to checkout a book
@@ -183,10 +195,22 @@ namespace Midterm_Project
 
         public void DisplayIndividualBookInformation(Book book)
         {
-            Console.WriteLine($"\nTitle: {book.Title,10}\n" +
+            //will add in column alignment here for better visibility         
+
+                Console.WriteLine("{0,-73} {1,-25} {2,-20} {3,-10} {4,-1}",
+                   
+                    book.Title,
+                    book.Author,
+                    book.genre,
+                    book.NumberOfPages,
+                    book.status);
+
+                //DisplayIndividualBookInformation(books[i]);
+
+           /* Console.WriteLine($"\nTitle: {book.Title,10}\n" +
                 $"\tAuthor: {book.Author,10}\n" +
                 $"\tPages: {book.NumberOfPages}\n" +
-                $"\tStatus: {book.status}\n");
+                $"\tStatus: {book.status}\n");*/
         }
 
         public static void CheckOutBook(Book book)
