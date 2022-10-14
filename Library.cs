@@ -52,6 +52,7 @@ namespace Midterm_Project
         public void SearchBookByAuthor(List<Book> books)
         {
             int bookCount = 0;
+            string author = GetUserInput("which author are you looking for?");
 
             bool booksbyAuthor = books.Any(b => b.Author == author);
             if (booksbyAuthor)
@@ -59,7 +60,6 @@ namespace Midterm_Project
                 Console.WriteLine($"\n{author.ToUpper()} found:");
             }
 
-			string author = GetUserInput("which author are you looking for?");
             for (int i = 0; i < books.Count; i++)
             {
                 if (books[i].Author == author)
@@ -90,7 +90,6 @@ namespace Midterm_Project
                 Console.WriteLine($"\n{title.ToUpper()} found:");
             }
 
-            for (int i = 0; i < books.Count; i++)
 			for (int i = 0; i < books.Count; i++)
             {
                 if (books[i].Title == title)
