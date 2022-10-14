@@ -30,10 +30,10 @@ namespace Midterm_Project
             AskToCheckOut();
         }
 
-        public void SearchBookByAuthor(List<Book> books, string author)
+        public void SearchBookByAuthor(List<Book> books)
         {
             int bookCount = 0;
-
+			string author = GetUserInput("which author are you looking for?");
             for (int i = 0; i < books.Count; i++)
             {
                 if (books[i].Author == author)
@@ -53,13 +53,14 @@ namespace Midterm_Project
 
         }
 
-        public void SearchBookByTitle(List<Book> books, string title)
+        public void SearchBookByTitle(List<Book> books)
         {
             int bookCount = 0;
+            string title = GetUserInput("which title are you looking for?");
 
-            for (int i = 0; i < books.Count; i++)
+			for (int i = 0; i < books.Count; i++)
             {
-                if (books[i].Author == title)
+                if (books[i].Title == title)
                 {
                     Console.WriteLine($"\n{title} found:");
                     DisplayIndividualBookInformation(books[i]);
@@ -108,14 +109,27 @@ namespace Midterm_Project
             AskToCheckOut();
 
         }
+        public static void CheckOutBook(Book book)
+        {
+            Console.WriteLine($"thanks for being interested in {book.Title}");
 
 
+        }
 
-		public static void AskToCheckOut()
+
+		public static void AskToCheckOut(Book book)
 		{
 			string choice = GetUserInput("would you like to check any of these books out? y/n");
 			if (choice == "y")
 			{
+                if (book.status == Book.Status.Checked_Out)
+                {
+                    Console.WriteLine("This book is checked out! please be more careful");
+                }
+                else if (book.status == Book.Status.Hold)
+                {
+                    Console.WriteLine("this book is on hold! please be more careful");
+                }
 				Console.WriteLine("!!!! unfunctional but this would call checkout()");
 				// ask what book to check out
                 // call checkout things with the book we selected
