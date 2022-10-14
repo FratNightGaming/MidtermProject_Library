@@ -162,8 +162,18 @@ namespace Midterm_Project
             while(getGenre) {
                 try
                 {
-                    genre = (Genre)Enum.Parse(typeof(Genre), GetUserInput("which genre would you like? we have "));
-                    getGenre = false;
+                    genre = (Genre)Enum.Parse(typeof(Genre), GetUserInput("which genre would you like? or type genres for a list :)"));
+					/*if (choice == "genre")
+					{
+
+						foreach (Genre genre in Enum.GetValues(typeof(Genre)))
+						{
+							Console.Write($"{genre}, ");
+						}
+
+						return AskToCheckOut();
+					}*/
+					getGenre = false;
                 }
                 catch (ArgumentException)
                 {
@@ -173,11 +183,16 @@ namespace Midterm_Project
             int bookCount = 0;
 			List<Book> booksByGenre = new List<Book>();
 
+
             if (books.Any(b => b.genre == genre))
             {
+              Console.WriteLine($"\n{genre} found:");
             }
 
-            /*bool booksbyGenre = books.Any(b => b.genre == genre);
+
+			/*
+            bool booksbyGenre = books.Any(b => b.genre == genre);
+
             if (booksbyGenre)
             {
                 Console.WriteLine($"\n{genre} found:");
@@ -207,10 +222,8 @@ namespace Midterm_Project
 			
 
 
-            Console.WriteLine("before asktocheck");
             if (AskToCheckOut())
             {
-                Console.WriteLine("in if");
 				Selection = booksByGenre[GetUserInt("please enter the index of the book you'd like")-1];
 				if (Selection.status == Book.Status.Checked_Out)
 				{
@@ -225,11 +238,12 @@ namespace Midterm_Project
 				{
 					// get date
 				    DateTime current = DateTime.Today;
-					current.AddDays(14);
+					current = current.AddDays(14);
 					Selection.DueDate = current;
                     Selection.status = Status.Checked_Out;
-					string formattedDate = Selection.DueDate.ToString();
+					string formattedDate = Selection.DueDate.ToString("MMMM/d/yyyy");
 					Console.WriteLine($"{Selection.Title} will be due back on {formattedDate}");
+                    Console.WriteLine("Thank You!");
 				}
 			}
 		}
@@ -250,7 +264,8 @@ namespace Midterm_Project
 		public static bool AskToCheckOut()
 		{
 			string choice = GetUserInput("would you like to check any of these books out? y/n").ToLower();
-            if (choice == "y")
+			
+			if (choice == "y")
             {
                 return true;
             }
@@ -261,8 +276,10 @@ namespace Midterm_Project
             }
             else
             {
-              return AskToCheckOut();
+            Console.WriteLine("out of y/n if");
+            return true;
             }
+
         }
 
         public static string GetUserInput(string msg)
