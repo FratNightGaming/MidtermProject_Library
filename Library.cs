@@ -48,7 +48,7 @@ namespace Midterm_Project
                 //DisplayIndividualBookInformation(books[i]);
             }
 
-            AskToCheckOut();
+
         }
 
         public void SearchBookByAuthor(List<Book> books)
@@ -143,42 +143,45 @@ namespace Midterm_Project
             int bookCount = 0;
 			List<Book> booksByGenre = new List<Book>();
 
-			if (books.Any(b => b.genre == genre))
+			/*if (books.Any(b => b.genre == genre))
             {
                 Console.WriteLine($"\n{genre} found:");
             }
 
-            /*bool booksbyGenre = books.Any(b => b.genre == genre);
+            bool booksbyGenre = books.Any(b => b.genre == genre);
             if (booksbyGenre)
             {
                 Console.WriteLine($"\n{genre} found:");
             }*/
-            
 
-			for (int i = 0; i < books.Count; i++)
-            {
-                if (books[i].genre == genre)
-                {
-                    DisplayIndividualBookInformation(books[i]);
-                    bookCount++;
-                }
 
-                //use linq to instantiate list based on criteria, then loop through each book found and display info
-                booksByGenre = books.Where(b => b.genre == genre).ToList();
+			/*			for (int i = 0; i < books.Count; i++)
+						{
+							if (books[i].genre == genre)
+							{
+								DisplayIndividualBookInformation(books[i]);
+								bookCount++;
+							}
+						}*/
 
-                Console.WriteLine($"List of books by {genre}");
+			//use linq to instantiate list based on criteria, then loop through each book found and display info
+			booksByGenre = books.Where(b => b.genre == genre).ToList();
+			foreach (Book book in booksByGenre)
+			{
+				DisplayIndividualBookInformation(book);
+				bookCount++;
+			}
+			if (bookCount == 0)
+			{
+				Console.WriteLine($"{genre} not found.");
+			}
+			else
+			{
+				Console.WriteLine($"List of books by {genre}");
+			}
 
-                foreach (Book book in booksByGenre)
-                {
-                    DisplayIndividualBookInformation(book);
-                }
-            }
 
-            if (bookCount == 0)
-            {
-                Console.WriteLine($"{genre} not found.");
-            }
-
+            Console.WriteLine("before asktocheck");
             if (AskToCheckOut())
             {
                 Console.WriteLine("in if");
@@ -206,11 +209,9 @@ namespace Midterm_Project
 
         public void DisplayIndividualBookInformation(Book book)
         {
-            Console.WriteLine($"\nTitle: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}\n");
-
-            AskToCheckOut();
-
+            Console.WriteLine($"Title: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}");
         }
+
         public static void CheckOutBook(Book book)
         {
             Console.WriteLine($"thanks for being interested in {book.Title}");
@@ -221,7 +222,7 @@ namespace Midterm_Project
 
 		public static bool AskToCheckOut()
 		{
-			string choice = GetUserInput("would you like to check any of these books out? y/n");
+			string choice = GetUserInput("would you like to check any of these books out? y/n").ToLower();
             if (choice == "y")
             {
                 return true;
@@ -237,7 +238,7 @@ namespace Midterm_Project
 				return AskToCheckOut();
 			}
             Console.WriteLine("out of if");
-            return false;
+            return true;
         }
 
 		
