@@ -12,8 +12,10 @@ namespace Midterm_Project
         public List<Book> books { get; set; } = new List<Book>();
         public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
+        public Book Selection { get; set; }
 
-        public Library()
+
+		public Library()
         {
             books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.Fantasy, Book.Status.Available));
             books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.Fantasy, Book.Status.Checked_Out));
@@ -32,29 +34,30 @@ namespace Midterm_Project
             books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.Nonfiction, Book.Status.Available));
             books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.Nonfiction, Book.Status.Available));
             books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.History, Book.Status.Available));
-
-
         }
 
         public void DisplayBooksAllInformation(List<Book> books)
         {
             Console.WriteLine("\nBooks On Display");
-            
+
             for (int i = 0; i < books.Count; i++)
             {
-                Console.WriteLine($"{i+1, -10} Title: {books[i].Title, 10}, Author: {books[i].Author, 10}, Genre: {books[i].genre, 10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
+                Console.WriteLine($"{i + 1,-10} Title: {books[i].Title,10}, Author: {books[i].Author,10}, Genre: {books[i].genre,10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
                 //DisplayIndividualBookInformation(books[i]);
             }
 
-            AskToCheckOut();
+
         }
 
         public void SearchBookByAuthor(List<Book> books)
         {
             int bookCount = 0;
+
             string author = GetUserInput("which author are you looking for?");
 
+
             bool booksbyAuthor = books.Any(b => b.Author == author);
+
             if (booksbyAuthor)
             {
                 Console.WriteLine($"\n{author.ToUpper()} found:");
@@ -83,14 +86,14 @@ namespace Midterm_Project
         {
             int bookCount = 0;
             string title = GetUserInput("which title are you looking for?");
-
+            
             bool booksbyTitle = books.Any(b => b.Title == title);
             if (booksbyTitle)
             {
                 Console.WriteLine($"\n{title.ToUpper()} found:");
             }
 
-			for (int i = 0; i < books.Count; i++)
+            for (int i = 0; i < books.Count; i++)
             {
                 if (books[i].Title == title)
                 {
@@ -117,7 +120,6 @@ namespace Midterm_Project
             AskToCheckOut();
 
         }
-
         public void SearchBookByGenre(List<Book> books, Book.Genre genre)
         {
             int bookCount = 0;
@@ -150,23 +152,91 @@ namespace Midterm_Project
                 {
                     DisplayIndividualBookInformation(book);
                 }
+                
+        public void SearchBookByGenre(List<Book> books)
+        {
+            Genre genre = Book.Genre.Biography;
+            bool getGenre = true;
+            while(getGenre) {
+                try
+                {
+                    genre = (Genre)Enum.Parse(typeof(Genre), GetUserInput("which genre would you like? we have "));
+                    getGenre = false;
+                }
+                catch (ArgumentException)
+                {
+                    Console.WriteLine("thats not a valid genre! try again");
+                }
             }
+            int bookCount = 0;
+			List<Book> booksByGenre = new List<Book>();
 
-            if (bookCount == 0)
+            if (books.Any(b => b.genre == genre))
             {
-                Console.WriteLine($"{genre} not found.");
             }
-            AskToCheckOut();
 
-        }
+            /*bool booksbyGenre = books.Any(b => b.genre == genre);
+            if (booksbyGenre)
+            {
+                Console.WriteLine($"\n{genre} found:");
+            }*/
+
+
+            /*			for (int i = 0; i < books.Count; i++)
+						{
+							if (books[i].genre == genre)
+							{
+								DisplayIndividualBookInformation(books[i]);
+								bookCount++;
+							}
+						}*/
+
+            //use linq to instantiate list based on criteria, then loop through each book found and display info
+            booksByGenre = books.Where(b => b.genre == genre).ToList();
+			foreach (Book book in booksByGenre)
+			{
+				DisplayIndividualBookInformation(book);
+				bookCount++;
+			}
+			if (bookCount == 0)
+			{
+				Console.WriteLine($"{genre} not found.");
+			}
+			
+
+
+            Console.WriteLine("before asktocheck");
+            if (AskToCheckOut())
+            {
+                Console.WriteLine("in if");
+				Selection = booksByGenre[GetUserInt("please enter the index of the book you'd like")-1];
+				if (Selection.status == Book.Status.Checked_Out)
+				{
+					Console.WriteLine("This book is checked out! please be more careful");
+
+				}
+				else if (Selection.status == Book.Status.Hold)
+				{
+					Console.WriteLine("this book is on hold! please be more careful");
+				}
+				else if (Selection.status == Book.Status.Available)
+				{
+					// get date
+				    DateTime current = DateTime.Today;
+					current.AddDays(14);
+					Selection.DueDate = current;
+                    Selection.status = Status.Checked_Out;
+					string formattedDate = Selection.DueDate.ToString();
+					Console.WriteLine($"{Selection.Title} will be due back on {formattedDate}");
+				}
+			}
+		}
 
         public void DisplayIndividualBookInformation(Book book)
         {
-            Console.WriteLine($"\nTitle: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}\n");
-
-            AskToCheckOut();
-
+            Console.WriteLine($"Title: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}");
         }
+
         public static void CheckOutBook(Book book)
         {
             Console.WriteLine($"thanks for being interested in {book.Title}");
@@ -175,73 +245,68 @@ namespace Midterm_Project
         }
 
 
-		public static void AskToCheckOut(Book book)
+		public static bool AskToCheckOut()
 		{
-			string choice = GetUserInput("would you like to check any of these books out? y/n");
-			if (choice == "y")
-			{
-                if (book.status == Book.Status.Checked_Out)
-                {
-                    Console.WriteLine("This book is checked out! please be more careful");
-                }
-                else if (book.status == Book.Status.Hold)
-                {
-                    Console.WriteLine("this book is on hold! please be more careful");
-                }
-				Console.WriteLine("!!!! unfunctional but this would call checkout()");
-				// ask what book to check out
-                // call checkout things with the book we selected
-			} 
-			else if (choice == "n")
-			{
-				Console.WriteLine("we hope you find another book you'd like!");
-			}
-		}
-		public static string GetUserInput(string msg)
-		{
-			string input = null;
-			try
-			{
-				Console.WriteLine(msg);
-				input = Console.ReadLine();
-			}
-			catch (Exception)
-			{
-				Console.WriteLine("that wasnt't a valid input");
-				GetUserInput(msg);
+			string choice = GetUserInput("would you like to check any of these books out? y/n").ToLower();
+            if (choice == "y")
+            {
+                return true;
+            }
+            else if (choice == "n")
+            {
+                Console.WriteLine("we hope you find another book you'd like!");
+                return false;
+            }
+            else
+            {
+              return AskToCheckOut();
+            }
+        }
 
-			}
-			if (input == null)
-			{
-				Console.WriteLine("you didn't seem to type anything");
-				GetUserInput(msg);
-			}
-			return input;
-		}
-	}
+        public static string GetUserInput(string msg)
+        {
+            string input = null;
+            try
+            {
+                Console.WriteLine(msg);
+                input = Console.ReadLine();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("that wasnt't a valid input");
+                GetUserInput(msg);
 
-    
+            }
+            if (input == null)
+            {
+                Console.WriteLine("you didn't seem to type anything");
+                GetUserInput(msg);
+            }
+            return input;
+        }
+        public static int GetUserInt(string msg)
+        {
+            int input = -1;
+            try
+            {
+                Console.WriteLine(msg);
+                input = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("that wasnt't a valid input");
+                GetUserInput(msg);
+
+            }
+            if (input == -1)
+            {
+                Console.WriteLine("you didn't seem to type anything");
+                GetUserInput(msg);
+            }
+            return input;
+        }
+    }
 }
-/*
- 
-                string status = "";
-				if (book.status == Book.Status.Available)
-				{
-					status = "In Library";
-				}
-				else if (book.status == Book.Status.Checked_Out)
-				{
-					status = "Checked Out :(";
-					// would like to add the date the book is out till
-				}
-				else if (book.status == Book.Status.Hold)
-				{
-					status = $"On Hold (book.date)";
-					// if we do use holds
-				}
-
-*/
-
 
 /*Write a console program which allows a user to search a library catalog and check out books.
 Your solution must include some kind of a book class with a title, author, status, and due date if checked out.
