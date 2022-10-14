@@ -8,7 +8,41 @@ namespace Midterm_Project
         {
             Console.WriteLine("Welcome to the Library!!!");
             Library library1 = new Library();
-            library1.DisplayBooksAllInformation(library1.books);
+
+            //library1.DisplayBooksAllInformation(library1.books);
+
+
+/*
+            int userInput = -1;;
+            while (userInput == -1)
+
+            {
+                try
+                {
+                    Console.WriteLine($"Select the book you would like to check out from the list above. Enter 1-{library1.books.Count}");
+                    userInput = int.Parse(Console.ReadLine());
+                    if (userInput > 0 && userInput <= library1.books.Count)
+                    {
+                        Console.WriteLine("test here");
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{library1.books.Count}.");
+                        Console.WriteLine();
+                        continue;
+                    }
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{library1.books.Count}.");
+                    Console.WriteLine();
+                    continue;
+                }
+            }
+
+*/
+
             
             // always loop to keep asking user what they want to do
             while(true)
@@ -16,23 +50,26 @@ namespace Midterm_Project
                 string input = Library.GetUserInput("what would you like to do? (1)list books, (2)search, or (3)checkin");
                 if (input == "1" || input == "list" || input == "list books")
                 {
-					// see list of books - calls display books
+					library1.DisplayBooksAllInformation(library1.books);
 					// AskToCheckOut() will come when books are printed then will ask y/n - we want as much in method as possible
 				}
 				else if (input == "2" || input == "search")
                 {
-                    input = Library.GetUserInput("would you like to search by (1)title or (2)author");
+                    input = Library.GetUserInput("would you like to search by (1)title, (2)author, or (3)genre");
                     if (input == "1" || input == "title")
                     {
-                        // search method for titles - calls display books
-                        // AskToCheckOut() will come for searches as well
-                    } 
+						library1.SearchBookByTitle(library1.books);
+						// AskToCheckOut() will come for searches as well
+					} 
                     else if(input == "2" || input == "author")
                     {
-                        // search method for authors
-                        // asktocheckout again 
+                        library1.SearchBookByAuthor(library1.books);
+						// asktocheckout again 
+					}
+                    else if (input == "3" || input == "genre")
+                    {
+                        library1.SearchBookByGenre(library1.books);
                     }
-                    // love to do genres later
                 }
                 else if (input == "3" || input == "checkin")
                 {
@@ -44,6 +81,12 @@ namespace Midterm_Project
         public static void DisplayBooksByTitle()
         {
 
+        }
+
+
+        public static void ReturnBook()
+        {
+            
         }
     }
 }
