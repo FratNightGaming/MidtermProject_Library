@@ -12,35 +12,6 @@ namespace Midterm_Project
             //library1.DisplayBooksAllInformation(library1.books);
 
 
-            int userInput = -1;
-            while (userInput == -1)
-
-            {
-                try
-                {
-                    Console.WriteLine($"Select the book you would like to check out from the list above. Enter 1-{library1.books.Count}");
-                    userInput = int.Parse(Console.ReadLine());
-                    if (userInput > 0 && userInput <= library1.books.Count)
-                    {
-                        Console.WriteLine("test here");
-                        
-                        library1.DisplayIndividualBookInformation(library1.books[userInput -1]);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{library1.books.Count}.");
-                        Console.WriteLine();
-                        continue;
-                    }
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{library1.books.Count}.");
-                    Console.WriteLine();
-                    continue;
-                }
-            }
-
             // always loop to keep asking user what they want to do
             while (true)
             {
@@ -50,6 +21,35 @@ namespace Midterm_Project
                 {
                     Library.DisplayBooksAllInformation(library1.books);
                     // AskToCheckOut() will come when books are printed then will ask y/n - we want as much in method as possible
+
+                    int userInput = -1;
+                    while (userInput == -1)
+
+                    {
+                        try
+                        {
+                            Console.WriteLine($"Select the book you would like to check out from the list above. Enter 1-{library1.books.Count}");
+                            userInput = int.Parse(Console.ReadLine());
+                            if (userInput > 0 && userInput <= library1.books.Count)
+                            {
+                                Console.WriteLine("test here");
+
+                                library1.DisplayIndividualBookInformation(library1.books[userInput - 1]);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{library1.books.Count}.");
+                                Console.WriteLine();
+                                continue;
+                            }
+                        }
+                        catch (FormatException e)
+                        {
+                            Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{library1.books.Count}.");
+                            Console.WriteLine();
+                            continue;
+                        }
+                    }
                 }
                 
                 else if (input == "2" || input == "search")
