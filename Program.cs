@@ -61,8 +61,6 @@ namespace Midterm_Project
                     else if (input == "2" || input == "author")
                     {
                         library1.SearchBookByAuthor(library1.books);
-
-                        // asktocheckout again 
                     }
                     else if (input == "3" || input == "genre")
                     {
@@ -71,7 +69,7 @@ namespace Midterm_Project
                 }
                 else if (input == "3" || input == "checkin")
                 {
-                    // checkin method
+                    // checkin method for later
                 }
             }
 
