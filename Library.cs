@@ -53,7 +53,6 @@ namespace Midterm_Project
         {
             int bookCount = 0;
 
-
             string author = GetUserInput("which author are you looking for?");
 
 
@@ -87,8 +86,7 @@ namespace Midterm_Project
         {
             int bookCount = 0;
             string title = GetUserInput("which title are you looking for?");
-
-
+            
             bool booksbyTitle = books.Any(b => b.Title == title);
             if (booksbyTitle)
             {
@@ -96,7 +94,6 @@ namespace Midterm_Project
             }
 
             for (int i = 0; i < books.Count; i++)
-
             {
                 if (books[i].Title == title)
                 {
@@ -123,7 +120,39 @@ namespace Midterm_Project
             AskToCheckOut();
 
         }
+        public void SearchBookByGenre(List<Book> books, Book.Genre genre)
+        {
+            int bookCount = 0;
 
+            if (books.Any(b => b.genre == genre))
+            {
+                Console.WriteLine("\n{genre} found:");
+            }
+            
+            /*bool booksbyGenre = books.Any(b => b.genre == genre);
+            if (booksbyGenre)
+            {
+                Console.WriteLine($"\n{genre} found:");
+            }*/
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                if (books[i].genre == genre)
+                {
+                    DisplayIndividualBookInformation(books[i]);
+                    bookCount++;
+                }
+
+                //use linq to instantiate list based on criteria, then loop through each book found and display info
+                List<Book> booksByGenre = books.Where(b => b.genre == genre).ToList();
+
+                Console.WriteLine($"List of books by {genre}");
+
+                foreach (Book book in booksByGenre)
+                {
+                    DisplayIndividualBookInformation(book);
+                }
+                
         public void SearchBookByGenre(List<Book> books)
         {
             Genre genre = Book.Genre.Biography;
@@ -144,7 +173,6 @@ namespace Midterm_Project
 
             if (books.Any(b => b.genre == genre))
             {
-                Console.WriteLine($"\n{genre} found:");
             }
 
             /*bool booksbyGenre = books.Any(b => b.genre == genre);
