@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using static Midterm_Project.Book;
@@ -38,13 +39,26 @@ namespace Midterm_Project
 
         public static void DisplayBooksAllInformation(List<Book> books)
         {
-            Console.WriteLine("\nBooks On Display");
+            Console.WriteLine("\nBooks On Display\n");
 
+            Console.Write("{0,-10} {1,-73} {2,-25} {3,-20} {4,-10} {5,-1} \n" , 
+                          "Index", "Title", "Author", "Genre", "Pages", "Status");
+
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+            
             for (int i = 0; i < books.Count; i++)
             {
-                Console.WriteLine($"{i + 1,-10} Title: {books[i].Title,10}, Author: {books[i].Author,10}, Genre: {books[i].genre,10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
+                Console.WriteLine("{0,-10} {1,-73} {2,-25} {3,-20} {4,-10} {5,-1}",
+                    i+1, 
+                    books[i].Title, 
+                    books[i].Author, 
+                    books[i].genre,
+                    books[i].NumberOfPages,
+                    books[i].status);
+
                 //DisplayIndividualBookInformation(books[i]);
             }
+            Console.WriteLine();
 
 
         }
@@ -212,9 +226,12 @@ namespace Midterm_Project
             booksByGenre = books.Where(b => b.genre == genre).ToList();
 			foreach (Book book in booksByGenre)
 			{
-				DisplayIndividualBookInformation(book);
-				bookCount++;
-			}
+                bookCount++;
+                Console.Write($"{bookCount})\t");
+                
+                DisplayIndividualBookInformation(book);
+                Console.WriteLine();
+            }
 			if (bookCount == 0)
 			{
 				Console.WriteLine($"{genre} not found.");
@@ -250,7 +267,10 @@ namespace Midterm_Project
 
         public void DisplayIndividualBookInformation(Book book)
         {
-            Console.WriteLine($"Title: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}");
+            Console.WriteLine($"\nTitle: {book.Title,10}\n" +
+                $"\tAuthor: {book.Author,10}\n" +
+                $"\tPages: {book.NumberOfPages}\n" +
+                $"\tStatus: {book.status}\n");
         }
 
         public static void CheckOutBook(Book book)
