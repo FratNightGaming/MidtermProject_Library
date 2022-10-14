@@ -142,19 +142,19 @@ namespace Midterm_Project
             int bookCount = 0;
 			List<Book> booksByGenre = new List<Book>();
 
-			/*if (books.Any(b => b.genre == genre))
+            if (books.Any(b => b.genre == genre))
             {
                 Console.WriteLine($"\n{genre} found:");
             }
 
-            bool booksbyGenre = books.Any(b => b.genre == genre);
+            /*bool booksbyGenre = books.Any(b => b.genre == genre);
             if (booksbyGenre)
             {
                 Console.WriteLine($"\n{genre} found:");
             }*/
 
 
-			/*			for (int i = 0; i < books.Count; i++)
+            /*			for (int i = 0; i < books.Count; i++)
 						{
 							if (books[i].genre == genre)
 							{
@@ -163,8 +163,8 @@ namespace Midterm_Project
 							}
 						}*/
 
-			//use linq to instantiate list based on criteria, then loop through each book found and display info
-			booksByGenre = books.Where(b => b.genre == genre).ToList();
+            //use linq to instantiate list based on criteria, then loop through each book found and display info
+            booksByGenre = books.Where(b => b.genre == genre).ToList();
 			foreach (Book book in booksByGenre)
 			{
 				DisplayIndividualBookInformation(book);
@@ -174,10 +174,7 @@ namespace Midterm_Project
 			{
 				Console.WriteLine($"{genre} not found.");
 			}
-			else
-			{
-				Console.WriteLine($"List of books by {genre}");
-			}
+			
 
 
             Console.WriteLine("before asktocheck");
@@ -237,7 +234,7 @@ namespace Midterm_Project
               return AskToCheckOut();
             }
         }
-        
+
         public static string GetUserInput(string msg)
         {
             string input = null;
@@ -259,84 +256,29 @@ namespace Midterm_Project
             }
             return input;
         }
-    }
-
-                return false;
-            }
-            else
+        public static int GetUserInt(string msg)
+        {
+            int input = -1;
+            try
             {
-                Console.WriteLine("that's a y/n question");
-				return AskToCheckOut();
-			}
-            Console.WriteLine("out of if");
-            return true;
+                Console.WriteLine(msg);
+                input = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("that wasnt't a valid input");
+                GetUserInput(msg);
+
+            }
+            if (input == -1)
+            {
+                Console.WriteLine("you didn't seem to type anything");
+                GetUserInput(msg);
+            }
+            return input;
         }
-
-        public static string GetUserInput(string msg)
-		{
-			string input = null;
-			try
-			{
-				Console.WriteLine(msg);
-				input = Console.ReadLine();
-			}
-			catch (Exception)
-			{
-				Console.WriteLine("that wasnt't a valid input");
-				GetUserInput(msg);
-
-			}
-			if (input == null)
-			{
-				Console.WriteLine("you didn't seem to type anything");
-				GetUserInput(msg);
-			}
-			return input;
-		}
-		public static int GetUserInt(string msg)
-		{
-			int input = -1;
-			try
-			{
-				Console.WriteLine(msg);
-				input = int.Parse(Console.ReadLine());
-			}
-			catch (FormatException)
-			{
-				Console.WriteLine("that wasnt't a valid input");
-				GetUserInput(msg);
-
-			}
-			if (input == -1)
-			{
-				Console.WriteLine("you didn't seem to type anything");
-				GetUserInput(msg);
-			}
-			return input;
-		}
-	}
-
+    }
 }
-/*
- 
-                string status = "";
-				if (book.status == Book.Status.Available)
-				{
-					status = "In Library";
-				}
-				else if (book.status == Book.Status.Checked_Out)
-				{
-					status = "Checked Out :(";
-					// would like to add the date the book is out till
-				}
-				else if (book.status == Book.Status.Hold)
-				{
-					status = $"On Hold (book.date)";
-					// if we do use holds
-				}
-
-*/
-
 
 /*Write a console program which allows a user to search a library catalog and check out books.
 Your solution must include some kind of a book class with a title, author, status, and due date if checked out.
