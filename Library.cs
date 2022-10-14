@@ -185,7 +185,7 @@ namespace Midterm_Project
             if (AskToCheckOut())
             {
                 Console.WriteLine("in if");
-				Selection = booksByGenre[GetUserInt("please enter the index of the book you'd like")];
+				Selection = booksByGenre[GetUserInt("please enter the index of the book you'd like")-1];
 				if (Selection.status == Book.Status.Checked_Out)
 				{
 					Console.WriteLine("This book is checked out! please be more careful");
@@ -201,6 +201,7 @@ namespace Midterm_Project
 				    DateTime current = DateTime.Today;
 					current.AddDays(14);
 					Selection.DueDate = current;
+                    Selection.status = Status.Checked_Out;
 					string formattedDate = Selection.DueDate.ToString();
 					Console.WriteLine($"{Selection.Title} will be due back on {formattedDate}");
 				}
