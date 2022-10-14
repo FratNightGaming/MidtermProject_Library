@@ -102,11 +102,16 @@ namespace Midterm_Project
         {
             int bookCount = 0;
 
-            bool booksbyGenre = books.Any(b => b.genre == genre);
+            if (books.Any(b => b.genre == genre))
+            {
+                Console.WriteLine("\n{genre} found:");
+            }
+            
+            /*bool booksbyGenre = books.Any(b => b.genre == genre);
             if (booksbyGenre)
             {
                 Console.WriteLine($"\n{genre} found:");
-            }
+            }*/
 
             for (int i = 0; i < books.Count; i++)
             {
