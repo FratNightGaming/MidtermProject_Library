@@ -69,12 +69,12 @@ namespace Midterm_Project
                     // love to do genres later
 
 						// asktocheckout again 
-					}
+
                     else if (input == "3" || input == "genre")
                     {
                         library1.SearchBookByGenre(library1.books);
                     }
-
+                }
                 else if (input == "3" || input == "checkin")
                 {
                     // checkin method
