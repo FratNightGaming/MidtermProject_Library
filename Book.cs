@@ -16,13 +16,14 @@ namespace Midterm_Project
         public Genre genre { get; set; }
         public DateTime DueDate { get; set; }
         public Status status { get; set; }
+        public int MyProperty { get; set; }
 
         public enum Status
         {
             Available,
-            Checked_Out
+            Checked_Out,
+            Hold
         }
-
         public enum Genre
         {
             Fantasy,
@@ -45,8 +46,6 @@ namespace Midterm_Project
             this.genre = genre;
             this.status = status;
         }
-
-
     }
 }
 
