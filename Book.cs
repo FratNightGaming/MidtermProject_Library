@@ -13,16 +13,18 @@ namespace Midterm_Project
         public string Author { get; set; }
         public int NumberOfPages { get; set; }
         public int YearOfPublication { get; set; }
+        public int YearPublished { get; set; }
         public Genre genre { get; set; }
         public DateTime DueDate { get; set; }
         public Status status { get; set; }
+        public int MyProperty { get; set; }
 
         public enum Status
         {
             Available,
-            Checked_Out
+            Checked_Out,
+            Hold
         }
-
         public enum Genre
         {
             Fantasy,
@@ -36,17 +38,16 @@ namespace Midterm_Project
             Graphic_Novel
         }
 
-        public Book(string title, string author, int pages, int yearPublicated, Genre genre, Status status)
+        public Book(string title, string author, int pages, int year, Genre genre, Status status)
         {
             this.Title = title;
             this.Author = author;
             this.NumberOfPages = pages;
-            this.YearOfPublication = yearPublicated;
+            this.YearOfPublication = year;
+            this.YearPublished = year;
             this.genre = genre;
             this.status = status;
         }
-
-
     }
 }
 
