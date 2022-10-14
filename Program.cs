@@ -6,8 +6,39 @@ namespace Midterm_Project
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Welcome to the Library!!!");
             Library library1 = new Library();
             library1.DisplayBooksAllInformation(library1.books);
+            
+            // always loop to keep asking user what they want to do
+            while(true)
+            {
+                string input = Library.GetUserInput("what would you like to do? (1)list books, (2)search, or (3)checkin");
+                if (input == "1" || input == "list" || input == "list books")
+                {
+					// see list of books - calls display books
+					// AskToCheckOut() will come when books are printed then will ask y/n - we want as much in method as possible
+				}
+				else if (input == "2" || input == "search")
+                {
+                    input = Library.GetUserInput("would you like to search by (1)title or (2)author");
+                    if (input == "1" || input == "title")
+                    {
+                        // search method for titles - calls display books
+                        // AskToCheckOut() will come for searches as well
+                    } 
+                    else if(input == "2" || input == "author")
+                    {
+                        // search method for authors
+                        // asktocheckout again 
+                    }
+                    // love to do genres later
+                }
+                else if (input == "3" || input == "checkin")
+                {
+                    // checkin method
+                }
+            }
         }
 
         public static void DisplayBooksByTitle()

@@ -27,7 +27,7 @@ namespace Midterm_Project
                 //DisplayIndividualBookInformation(books[i]);
             }
 
-            //Continue function
+            AskToCheckOut();
         }
 
         public void SearchBookByAuthor(List<Book> books, string author)
@@ -49,7 +49,7 @@ namespace Midterm_Project
                 Console.WriteLine("Author not found.");
             }
 
-            //Continue function
+            AskToCheckOut();
 
         }
 
@@ -73,7 +73,7 @@ namespace Midterm_Project
             {
                 Console.WriteLine($"{title} not found.");
             }
-            //Continue function
+            AskToCheckOut();
 
         }
 
@@ -97,7 +97,7 @@ namespace Midterm_Project
             {
                 Console.WriteLine($"{title} not found.");
             }
-            //Continue function
+            AskToCheckOut();
 
         }
 
@@ -105,12 +105,72 @@ namespace Midterm_Project
         {
             Console.WriteLine($"\nTitle: {book.Title,10}\tAuthor: {book.Author,10}\tPages: {book.NumberOfPages}\tStatus: {book.status}\n");
 
-            //Continue function
+            AskToCheckOut();
 
         }
 
-    }
+
+
+		public static void AskToCheckOut()
+		{
+			string choice = GetUserInput("would you like to check any of these books out? y/n");
+			if (choice == "y")
+			{
+				Console.WriteLine("!!!! unfunctional but this would call checkout()");
+				// ask what book to check out
+                // call checkout things with the book we selected
+			} 
+			else if (choice == "n")
+			{
+				Console.WriteLine("we hope you find another book you'd like!");
+			}
+		}
+		public static string GetUserInput(string msg)
+		{
+			string input = null;
+			try
+			{
+				Console.WriteLine(msg);
+				input = Console.ReadLine();
+			}
+			catch (Exception)
+			{
+				Console.WriteLine("that wasnt't a valid input");
+				GetUserInput(msg);
+
+			}
+			if (input == null)
+			{
+				Console.WriteLine("you didn't seem to type anything");
+				GetUserInput(msg);
+			}
+			return input;
+		}
+	}
+
+    
 }
+/*
+ 
+                string status = "";
+				if (book.status == Book.Status.Available)
+				{
+					status = "In Library";
+				}
+				else if (book.status == Book.Status.Checked_Out)
+				{
+					status = "Checked Out :(";
+					// would like to add the date the book is out till
+				}
+				else if (book.status == Book.Status.Hold)
+				{
+					status = $"On Hold (book.date)";
+					// if we do use holds
+				}
+
+*/
+
+
 /*Write a console program which allows a user to search a library catalog and check out books.
 Your solution must include some kind of a book class with a title, author, status, and due date if checked out.
 Status should be On Shelf or Checked Out (or other statuses you can imagine). 
