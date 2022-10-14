@@ -7,12 +7,50 @@ namespace Midterm_Project
         static void Main(string[] args)
         {
             Library library1 = new Library();
+
             library1.DisplayBooksAllInformation(library1.books);
+
+
+            int userInput = -1;;
+            while (userInput == -1)
+
+            {
+                try
+                {
+                    Console.WriteLine($"Select the book you would like to check out from the list above. Enter 1-{library1.books.Count}");
+                    userInput = int.Parse(Console.ReadLine());
+                    if (userInput > 0 && userInput <= library1.books.Count)
+                    {
+                        Console.WriteLine("test here");
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{library1.books.Count}.");
+                        Console.WriteLine();
+                        continue;
+                    }
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{library1.books.Count}.");
+                    Console.WriteLine();
+                    continue;
+                }
+            }
+
+
         }
 
         public static void DisplayBooksByTitle()
         {
 
+        }
+
+
+        public static void ReturnBook()
+        {
+            
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Midterm_Project
             
             for (int i = 0; i < books.Count; i++)
             {
-                Console.WriteLine($"{i, -10} Title: {books[i].Title, 10}, Author: {books[i].Author, 10}, Genre: {books[i].genre, 10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
+                Console.WriteLine($"{i+1, -10} Title: {books[i].Title, 10}, Author: {books[i].Author, 10}, Genre: {books[i].genre, 10} Pages: {books[i].NumberOfPages,10}, Status: {books[i].status}\n");
                 //DisplayIndividualBookInformation(books[i]);
             }
 
