@@ -12,7 +12,7 @@ namespace Midterm_Project
         public List<Book> books { get; set; } = new List<Book>();
         public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
-        public static Book Selection { get; set; }
+        public static Book? Selection { get; set; }
 
 
 		public Library()
