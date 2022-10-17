@@ -343,7 +343,7 @@ namespace Midterm_Project
 					// get date
 					DateTime current = DateTime.Today;
 					DateTime dueDate = current.AddDays(14);
-          //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
+                    //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
 					books.Where(b => b.Title == CurrentBook.Title).First().DueDate = dueDate;
 					books.Where(b => b.Title == CurrentBook.Title).First().status = Status.checked_out;
 					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
@@ -374,8 +374,17 @@ namespace Midterm_Project
 			{
 				//print list of books with status checked out
 				int toParse = Library.GetUserInt("what book are you returning?") - 1;
-
+                while (toParse+1 > index || toParse < 0)
+                {
+                    Console.WriteLine("that isnt an index!");
+					toParse = Library.GetUserInt("what book are you returning?") - 1;
+                    if (!(toParse + 1 > index || toParse < 0))
+                    {
+                        break;
+                    }
+				}
 				// listofbookscheckedout
+                
 				toReturn = checkedOut.Where(b => b.Title == checkedOut[toParse].Title).First();
 				toReturn.status = Status.available;
 				Console.WriteLine($"{toReturn.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
@@ -447,7 +456,6 @@ namespace Midterm_Project
 			string filePath = currentDirectory + @"\testlist4.txt";
 
 			sw = new StreamWriter(filePath, false);
-			Console.WriteLine("writing to: " + filePath);
 			foreach (Book book in sortedBooks)
 			{
 				sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
@@ -469,7 +477,8 @@ namespace Midterm_Project
 			} catch (FileNotFoundException)
             {
                 WriteIO(booksFromFile);
-            }
+				Console.WriteLine("\nwriting to: " + filePath);
+			}
 			double entries = 0;
 			using (StreamReader sr = new StreamReader(filePath))
 			{
@@ -492,7 +501,7 @@ namespace Midterm_Project
 			}
 		}
 
-        /*public void Burn()
+        public void Burn()
         {
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 			string filePath = currentDirectory + @"\testlist4.txt";
@@ -500,7 +509,7 @@ namespace Midterm_Project
 			File.Delete(filePath);
 			sr.Close();
             Console.WriteLine("look at what you've done.");
-		}*/
+		}
 	}
 }
 

@@ -68,7 +68,7 @@ namespace Midterm_Project
                         {
                             List<Book> booksByAuthor = library1.SortBooksByAuthor(library1.books);
                             Console.WriteLine();
-                            library1.CheckOut(booksByAuthor);
+							library1.CheckOut(booksByAuthor);
                             break;
 
                         }
@@ -76,28 +76,28 @@ namespace Midterm_Project
                         {
                             List<Book> booksByPageLength = library1.SortBooksByPages(library1.books);
                             Console.WriteLine();
-                            library1.CheckOut(booksByPageLength);
+							library1.CheckOut(booksByPageLength);
                             break;
                         }
                         else if (userInput2 == "4" || userInput2 == "status" || userInput2 == "s")
                         {
                             List<Book> booksByStatus = library1.SortBooksByStatus(library1.books);
                             Console.WriteLine();
-                            library1.CheckOut(booksByStatus);
+							library1.CheckOut(booksByStatus);
                             break;
                         }
                         else if (userInput2 == "5" || userInput2 == "genre" || userInput2 == "g")
                         {
                             List<Book> booksByGenre = library1.SortBooksByGenre(library1.books);
                             Console.WriteLine();
-                            library1.CheckOut(booksByGenre);
+							library1.CheckOut(booksByGenre);
                             break;
                         }
                         else if (userInput2 == "6" || userInput2 == "year" || userInput2 == "y")
                         {
                             List<Book> booksByYear = library1.SortBooksByYear(library1.books);
                             Console.WriteLine();
-                            library1.CheckOut(booksByYear);
+							library1.CheckOut(booksByYear);
                             break;
                         }
                         else
@@ -140,10 +140,11 @@ namespace Midterm_Project
 				}
 				else if (input == "burn")
 				{
-                    /*Library.Burn();*/
+                    library1.Burn();
 				}
 			}
         }
+
     }
 }
 
