@@ -42,7 +42,19 @@ namespace Midterm_Project
             booksFromFile.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available, current));
             booksFromFile.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available, current));
 			booksFromFile.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available, current));
-      booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
+            booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
+            booksFromFile.Add(new Book("Calvin and Hobbs", "Bill Watterson", 3160, 1985, Book.Genre.graphic_novel, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("Peanuts", "Charles M. Schulz", 17897, 1950, Book.Genre.graphic_novel, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Martian", "Andy Weir", 369, 2011, Book.Genre.science_fiction, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Stormlight Archive - Book 1: The Way of Kings", "Brandon Sanderson", 1007, 2010, Book.Genre.fantasy, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("Salt: A World History", "Mark Kurlansky", 496, 2002, Book.Genre.history, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("Nonviolence: The History of a Dangerous Idea", "Mark Kurlansky", 244, 2006, Book.Genre.history, Book.Status.available, current));
+            booksFromFile.Add(new Book("SPQR: A History of Ancient Rome", "Mary Beard", 606, 2015, Book.Genre.history, Book.Status.available, current));
+            booksFromFile.Add(new Book("Romeo and Juliet", "Willian Shakespeare", 148, 1597, Book.Genre.romance, Book.Status.available, current));
+            booksFromFile.Add(new Book("Sherlock Holmes: A Study in Scarlet", "Sir Arthur Conan Doyle", 230, 1887, Book.Genre.mystery, Book.Status.checked_out, current));   
+            booksFromFile.Add(new Book("The Story of the Streets", "Mike Skinner", 304, 2012, Book.Genre.biography, Book.Status.available, current));
+            booksFromFile.Add(new Book("The King in Yellow", "Robert W. Chambers", 316, 1895, Book.Genre.horror, Book.Status.available, current));
+            booksFromFile.Add(new Book("Dune", "Frank Herbert", 412, 1965, Book.Genre.science_fiction, Book.Status.checked_out, current));
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
@@ -62,7 +74,7 @@ namespace Midterm_Project
                     books[i].Author,
                     books[i].genre,
                     books[i].NumberOfPages,
-                    books[1].YearOfPublication,
+                    books[i].YearOfPublication,
                     books[i].status); 
 
                 //Console.WriteLine(DisplayIndividualBookInformation(books[i]));
@@ -351,7 +363,7 @@ namespace Midterm_Project
 			int index = 0;
 			foreach (Book book in books)
 			{
-				if (book.status == Book.Status.Checked_Out)
+				if (book.status == Book.Status.checked_out)
 				{
 					index++;
 					checkedOut.Add(book);
@@ -365,7 +377,7 @@ namespace Midterm_Project
 
 				// listofbookscheckedout
 				toReturn = checkedOut.Where(b => b.Title == checkedOut[toParse].Title).First();
-				toReturn.status = Status.Available;
+				toReturn.status = Status.available;
 				Console.WriteLine($"{toReturn.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
 			}
 			else
