@@ -19,21 +19,21 @@ namespace Midterm_Project
 
         public enum Status
         {
-            Available,
-            Checked_Out,
-            Hold
+            available,
+            checked_out,
+            hold
         }
         public enum Genre
         {
-            Fantasy,
-            Mystery,
-            Horror,
-            Romance,
-            Biography,
-            History,
-            Science_Fiction,
-            Nonfiction,
-            Graphic_Novel
+            fantasy,
+            mystery,
+            horror,
+            romance,
+            biography,
+            history,
+            science_fiction,
+            nonfiction,
+            graphic_novel
         }
 
         public Book(string title, string author, int pages, int year, Genre genre, Status status, DateTime DueDate)
