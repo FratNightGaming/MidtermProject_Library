@@ -1,7 +1,10 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Runtime;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +41,8 @@ namespace Midterm_Project
             books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available));
             books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available));
             books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available));
+            books.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available));
+
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
@@ -74,13 +79,13 @@ namespace Midterm_Project
 			int bookCount = 0;
 			List<Book> booksByAuthor = new List<Book>();
 			
-            if (books.Any(b => b.Author == author))
+            if (books.Any(b => b.Author.ToLower() == author))
 			{
 				Console.WriteLine($"\n{author} found:");
 			}
 
 			// brings all books found into a list and then prints them
-			booksByAuthor = books.Where(b => b.Author == author).ToList();
+			booksByAuthor = books.Where(b => b.Author.ToLower() == author).ToList();
 			foreach (Book book in booksByAuthor)
 			{
                 Console.WriteLine(DisplayIndividualBookInformation(book));
@@ -108,13 +113,13 @@ namespace Midterm_Project
             //lets just do if (books.count == 0). no need for variable
 			int bookCount = 0;
 
-			if (books.Any(b => b.Title == title))
+			if (books.Any(b => b.Title.ToLower() == title))
 			{
 				Console.WriteLine($"\n{title} found:");
 			}
 
 			// brings all books found into a list and then prints them
-			List<Book> booksByTitle = books.Where(b => b.Title == title).ToList();
+			List<Book> booksByTitle = books.Where(b => b.Title.ToLower() == title).ToList();
 			
             foreach (Book book in booksByTitle)
 			{
@@ -201,70 +206,84 @@ namespace Midterm_Project
                 CheckOut(booksByGenre);
 			}
 		}
-        public void SortBooksByTitle(List<Book> books)
+
+        
+
+        public List<Book> SortBooksByTitle(List<Book> books)
         {
             List<Book> booksByTitle = books.OrderBy(b => b.Title).ToList();
-
+            int index = 1;
             foreach (Book book in booksByTitle)
             {
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
             }
+            return booksByTitle;
         }
 
-        public void SortBooksByAuthor(List<Book> books)
+        public List<Book> SortBooksByAuthor(List<Book> books)
         {
             List<Book> booksByAuthor = books.OrderBy(b => b.Author).ThenBy(b => b.Title).ToList();
-
+            int index = 1;
             foreach (Book book in booksByAuthor)
             {
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
             }
+            return booksByAuthor;
         }
 
-        public void SortBooksByPages(List<Book> books)
+        public List<Book> SortBooksByPages(List<Book> books)
         {
-            List<Book> booksByPages = books.OrderBy(b => b.genre).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
-
+            List<Book> booksByPages = books.OrderByDescending(b => b.NumberOfPages).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+            int index = 1;
             foreach (Book book in booksByPages)
             {
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
             }
+            return booksByPages;
+
         }
 
-        public void SortBooksByStatus(List<Book> books)
+        public List <Book> SortBooksByStatus(List<Book> books)
         {
             List<Book> booksByStatus = books.OrderBy(b => b.status).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
-
+            int index = 1;
             foreach (Book book in booksByStatus)
             {
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
             }
+            return booksByStatus;
         }
 
-        public void SortBooksByGenre(List<Book> books)
+        public List<Book> SortBooksByGenre(List<Book> books)
         {
-            List<Book> booksByAuthor = books.OrderBy(b => b.NumberOfPages).ThenBy(b => b.Title).ToList();
-
-            foreach (Book book in booksByAuthor)
+            List<Book> booksByGenre = books.OrderBy(b => b.genre).ThenBy(b => b.Title).ToList();
+            int index = 1;
+            foreach (Book book in booksByGenre)
             {
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
             }
+            return booksByGenre;
         }
 
-        public void SortBooksByYear(List<Book> books)
+        public List<Book> SortBooksByYear(List<Book> books)
         {
-            List<Book> booksByAuthor = books.OrderBy(b => b.YearOfPublication).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
-
-            foreach (Book book in booksByAuthor)
+            List<Book> booksByYear = books.OrderByDescending(b => b.YearOfPublication).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+            int index = 1;
+            foreach (Book book in booksByYear)
             {
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
             }
+            return booksByYear;
         }
         public static string DisplayIndividualBookInformation(Book book)//do we want to add yearofpublication?
         {
-
-            string bookInformation = ($"{null,-5} {book.Title,-73} {book.Author,-25} {book.genre,-20} {book.NumberOfPages,-10} {book.YearOfPublication,-10} {book.YearOfPublication, -18} {book.status, 0}");
-
+            string bookInformation = ($"{null,-5} {book.Title,-73} {book.Author,-25} {book.genre,-20} {book.NumberOfPages,-10} {book.YearOfPublication, -18} {book.status, 0}");
             return bookInformation;
         }
 
@@ -300,7 +319,7 @@ namespace Midterm_Project
         {
 			if (AskToCheckOut())
 			{
-				CurrentBook = orderedBookList[GetUserInt("Please enter the index of the book you'd like") - 1];
+				CurrentBook = orderedBookList[GetUserInt("Please enter the index of the book you'd like:") - 1];
 
 				if (CurrentBook.status == Book.Status.checked_out)
 				{
@@ -326,11 +345,57 @@ namespace Midterm_Project
 				}
 			}
 		}
+
+       /* public static void CheckOutSingleBook(List<Book> orderedBookList)
+        {
+           string choice = GetUserInput("Would you like to check out this book out? Y/N").ToUpper().Trim();
+
+            while (true)
+            {
+                if (choice == "Y" || choice == "YES")
+                {
+                    if (CurrentBook.status == Book.Status.checked_out)
+                    {
+                        Console.WriteLine("This book is checked out! please be more careful");//display when due date is
+                    }
+
+                    else if (CurrentBook.status == Book.Status.hold)
+                    {
+                        Console.WriteLine("This book is on hold! please be more careful");//display when hold ends
+                    }
+
+                    else if (CurrentBook.status == Book.Status.available)
+                    {
+                        // get date
+                        DateTime current = DateTime.Today;
+                        DateTime dueDate = current.AddDays(14);
+                        //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
+                        CurrentBook.DueDate = dueDate;
+                        CurrentBook.status = Status.checked_out;
+                        string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
+                        Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
+                        Console.WriteLine("Thank You!\n");
+                    }
+                }
+                else if (choice == "N" || choice == "NO")
+                {
+                    Console.WriteLine("We hope you find another book you'd like!");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Input not recognized. Please try again.");
+                    return;
+                }
+            }
+        }*/
+
         public static void ReturnBook(Book book)
         {
             book.status = Status.available;
-            Console.WriteLine($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
+            Console.Write($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
         }
+
         public static string GetUserInput(string message)//implement a throw into catch for input == null
         {
             string input = String.Empty;
