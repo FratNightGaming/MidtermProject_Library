@@ -16,24 +16,22 @@ namespace Midterm_Project
             // always loop to keep asking user what they want to do
             while (true)
             {
-                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Search, or (3)Check-in: ");
+                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, or (4)Check-in:  ");
 
-                if (input == "1" || input == "list" || input == "list books")
+                if (input == "d" || input == "display" || input == "display book" || input == "display books" || input == "1")
                 {
                     Library.DisplayBooksAllInformation(library1.books);
                     // AskToCheckOut() will come when books are printed then will ask y/n - we want as much in method as possible
-
-                    int userInput = -1;
-                    while (userInput == -1)
+                    while (true)
                     {
                         try
                         {
                             Console.WriteLine($"Select the book you would like to check out from the list above. Enter 1-{library1.books.Count}");
-                            userInput = int.Parse(Console.ReadLine());
+                            int userInput = int.Parse(Console.ReadLine());
                             if (userInput > 0 && userInput <= library1.books.Count)
                             {
-                                Console.WriteLine("test here");
                                 Console.WriteLine(Library.DisplayIndividualBookInformation(library1.books[userInput - 1]));
+                                Console.WriteLine();                             
                             }
                             else
                             {
@@ -51,17 +49,50 @@ namespace Midterm_Project
                     }
                 }
 
-                else if (input == "2" || input == "search")
+                else if(input == "2" || input == "sort" || input == "list" || input == "sort list" || input == "sl")
                 {
-                    input = Library.GetUserInput("would you like to search by (1)title, (2)author, or (3)genre");
+                    string userInput2 = Library.GetUserInput("What would you like to sort by? (1)Title, (2)Author, (3)Page Length, (4)Status, (5)Genre, or (6)Year: ");
+                    
+                    //will convert this to a method later?
+                    if (userInput2 == "1")
+                    {
+
+                    }
+                    else if (userInput2 == "2")
+                    {
+
+                    }
+                    else if (userInput2 == "3")
+                    {
+
+                    }
+                    else if (userInput2 == "4")
+                    {
+
+                    }
+                    else if (userInput2 == "5")
+                    {
+
+                    }
+                    else if (userInput2 == "6")
+                    {
+
+                    }
+                }
+
+                else if (input == "3" || input == "search" || input == "search book" || input == "search books" || input == "s")
+                {
+                    input = Library.GetUserInput("What would you like to search by: (1)Title, (2)Author, or (3)Genre");
                     if (input == "1" || input == "title")
                     {
                         library1.SearchBookByTitle(library1.books);
+                        Console.WriteLine();
                         // AskToCheckOut() will come for searches as well
                     }
                     else if (input == "2" || input == "author")
                     {
                         library1.SearchBookByAuthor(library1.books);
+                        Console.WriteLine();
                     }
                     // love to do genres later
 
@@ -69,10 +100,11 @@ namespace Midterm_Project
                     else if (input == "3" || input == "genre")
                     {
                         library1.SearchBookByGenre(library1.books);
+                        Console.WriteLine();
                     }
                 }
 
-                else if (input == "3" || input == "checkin")
+                else if (input == "4" || input == "c" || input == "checkin" || input == "check-in" || input == "checkin books" || input == "search books")
                 {
                     // checkin method for later
                 }

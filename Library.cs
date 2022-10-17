@@ -21,43 +21,44 @@ namespace Midterm_Project
 
 		public Library()//if else check to see if streamwriter file exists
         {
-            books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.Fantasy, Book.Status.Checked_Out));
-            books.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.Science_Fiction, Book.Status.Available));
-            books.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.Fantasy, Book.Status.Checked_Out));
-            books.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.Fantasy, Book.Status.Checked_Out));
-            books.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.History, Book.Status.Available));
+            books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.fantasy, Book.Status.checked_out));
+            books.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.science_fiction, Book.Status.available));
+            books.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.fantasy, Book.Status.checked_out));
+            books.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.fantasy, Book.Status.checked_out));
+            books.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.fantasy, Book.Status.available));
+            books.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.nonfiction, Book.Status.available));
+            books.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.nonfiction, Book.Status.available));
+            books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available));
+            books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available));
+            books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available));
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
         {
             Console.WriteLine("\nBooks On Display\n");
 
-            Console.Write("{0,-10} {1,-73} {2,-25} {3,-20} {4,-10} {5,-1} \n" , 
-                          "Index", "Title", "Author", "Genre", "Pages", "Status");
+            Console.Write("{0,-5} {1,-73} {2,-25} {3,-20} {4,-8} {5,-18} {6,0} \n", 
+                          "Index", "Title", "Author", "Genre", "Pages", "Year Published", "Status");
 
-            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
             
             for (int i = 0; i < books.Count; i++)
             {
-                Console.WriteLine("{0,-10} {1,-73} {2,-25} {3,-20} {4,-10} {5,-1}",
-                    i+1, 
-                    books[i].Title, 
-                    books[i].Author, 
+                Console.WriteLine("{0,-5} {1,-73} {2,-25} {3,-20} {4,-8} {5,-18} {6,0}",
+                    i + 1,
+                    books[i].Title,
+                    books[i].Author,
                     books[i].genre,
                     books[i].NumberOfPages,
-                    books[i].status);
+                    books[1].YearOfPublication,
+                    books[i].status); 
 
                 //Console.WriteLine(DisplayIndividualBookInformation(books[i]));
             }
@@ -136,12 +137,12 @@ namespace Midterm_Project
         public void SearchBookByGenre(List<Book> books)
         {
             // gets what the user wants to find
-            Genre genre = Book.Genre.Biography;
+            Genre genre = Book.Genre.biography;
             bool getGenre = true;
             while(getGenre) {
                 try
                 {
-                    genre = (Genre)Enum.Parse(typeof(Genre), GetUserInput("which genre would you like? or type genres for a list :)"));
+                    genre = (Genre)Enum.Parse(typeof(Genre), GetUserInput("Which genre would you like? or type genres for a list :)"));
 					/*if (choice == "genre")
 					{
 
@@ -172,16 +173,17 @@ namespace Midterm_Project
             // brings all books found into a list and then prints them
             booksByGenre = books.Where(b => b.genre == genre).ToList();
 
-            Console.Write("{0,-73} {1,-25} {2,-20} {3,-10} {4,-1} \n",
-                           "Title", "Author", "Genre", "Pages", "Status");
+            Console.Write("{0,-5} {1,-73} {2,-25} {3,-20} {4,-8} {5,-18} {6,0}  \n",
+                           "Index", "Title", "Author", "Genre", "Pages", "Year Published", "Status");
 
             foreach (Book book in booksByGenre)
 			{
                 bookCount++;
-                Console.Write($"{bookCount}");
+                Console.Write(bookCount);
 
-                Console.WriteLine(DisplayIndividualBookInformation(book)); 
+                Console.WriteLine(DisplayIndividualBookInformation(book));
             }
+            Console.WriteLine();
 
 			if (bookCount == 0)
 			{
@@ -260,16 +262,10 @@ namespace Midterm_Project
         }
         public static string DisplayIndividualBookInformation(Book book)//do we want to add yearofpublication?
         {
-            //will add in column alignment here for better visibility         
-            string bookInformation = $"{book.Title, -73} {book.Author, -25} {book.genre, -20} {book.NumberOfPages, -10} {book.status}";
-                
-            return bookInformation;
-            //DisplayIndividualBookInformation(books[i]);
 
-           /* Console.WriteLine($"\nTitle: {book.Title,10}\n" +
-                $"\tAuthor: {book.Author,10}\n" +
-                $"\tPages: {book.NumberOfPages}\n" +
-                $"\tStatus: {book.status}\n");*/
+            string bookInformation = ($"{null,-5} {book.Title,-73} {book.Author,-25} {book.genre,-20} {book.NumberOfPages,-10} {book.YearOfPublication,-10} {book.YearOfPublication, -18} {book.status, 0}");
+
+            return bookInformation;
         }
 
         public static void CheckOutBook(Book book)
@@ -306,24 +302,24 @@ namespace Midterm_Project
 			{
 				CurrentBook = orderedBookList[GetUserInt("Please enter the index of the book you'd like") - 1];
 
-				if (CurrentBook.status == Book.Status.Checked_Out)
+				if (CurrentBook.status == Book.Status.checked_out)
 				{
 					Console.WriteLine("This book is checked out! please be more careful");//display when due date is
 				}
 
-				else if (CurrentBook.status == Book.Status.Hold)
+				else if (CurrentBook.status == Book.Status.hold)
 				{
 					Console.WriteLine("This book is on hold! please be more careful");//display when hold ends
 				}
 
-				else if (CurrentBook.status == Book.Status.Available)
+				else if (CurrentBook.status == Book.Status.available)
 				{
 					// get date
 					DateTime current = DateTime.Today;
 					DateTime dueDate = current.AddDays(14);
                     //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
 					CurrentBook.DueDate = dueDate;
-					CurrentBook.status = Status.Checked_Out;
+					CurrentBook.status = Status.checked_out;
 					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
 					Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
 					Console.WriteLine("Thank You!\n");
@@ -332,7 +328,7 @@ namespace Midterm_Project
 		}
         public static void ReturnBook(Book book)
         {
-            book.status = Status.Available;
+            book.status = Status.available;
             Console.WriteLine($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
         }
         public static string GetUserInput(string message)//implement a throw into catch for input == null
@@ -342,7 +338,7 @@ namespace Midterm_Project
             try
             {
                 Console.WriteLine(message);
-                input = Console.ReadLine();
+                input = Console.ReadLine().ToLower();
             }
 
             catch (Exception)
