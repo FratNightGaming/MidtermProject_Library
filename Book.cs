@@ -13,11 +13,9 @@ namespace Midterm_Project
         public string Author { get; set; }
         public int NumberOfPages { get; set; }
         public int YearOfPublication { get; set; }
-        public int YearPublished { get; set; }
         public Genre genre { get; set; }
         public DateTime DueDate { get; set; }
         public Status status { get; set; }
-        public int MyProperty { get; set; }
 
         public enum Status
         {
@@ -44,7 +42,6 @@ namespace Midterm_Project
             this.Author = author;
             this.NumberOfPages = pages;
             this.YearOfPublication = year;
-            this.YearPublished = year;
             this.genre = genre;
             this.status = status;
         }
