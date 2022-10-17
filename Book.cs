@@ -36,7 +36,7 @@ namespace Midterm_Project
             graphic_novel
         }
 
-        public Book(string title, string author, int pages, int year, Genre genre, Status status)
+        public Book(string title, string author, int pages, int year, Genre genre, Status status, DateTime DueDate)
         {
             this.Title = title;
             this.Author = author;
@@ -44,6 +44,7 @@ namespace Midterm_Project
             this.YearOfPublication = year;
             this.genre = genre;
             this.status = status;
+            this.DueDate = DueDate;
         }
     }
 }

@@ -7,9 +7,9 @@ namespace Midterm_Project
         static void Main()//create arrays to contain possible user inputs
             //after display books (in display function), user should be able to press a key to sort by info, after which streamwriter will write that list to text file
         {
-            Console.WriteLine("Welcome to the Library!!!");
+            Console.Write("Welcome to the Library!!! ");
             Library library1 = new Library();
-
+            library1.ReadIO();
             //library1.DisplayBooksAllInformation(library1.books);
 
 
@@ -135,12 +135,16 @@ namespace Midterm_Project
 
                 else if (input == "4" || input == "c" || input == "checkin" || input == "check-in" || input == "checkin books" || input == "search books")
                 {
-                    // checkin method for later
+                    library1.ReturnBook();
+
+				}
+				else if (input == "burn")
+				{
+                    library1.Burn();
+				}
+			}
                 }
 
-
-                Console.WriteLine("ask to check out here?"); //prompt to check out selected books, and exit library program?
-                //also place for delete library list prompt?
             }
         }
     }
