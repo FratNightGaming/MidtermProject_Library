@@ -13,7 +13,7 @@ namespace Midterm_Project
         public string Author { get; set; }
         public int NumberOfPages { get; set; }
         public int YearOfPublication { get; set; }
-        public Genre genre { get; set; }
+        public Genre genre;
         public DateTime DueDate { get; set; }
         public Status status { get; set; }
 

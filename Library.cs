@@ -221,7 +221,7 @@ namespace Midterm_Project
 
         public void SortBooksByPages(List<Book> books)
         {
-            List<Book> booksByPages = books.OrderBy(b => b.genre).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+            List<Book> booksByPages = books.OrderByDescending(b => b.NumberOfPages).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
 
             foreach (Book book in booksByPages)
             {
@@ -241,7 +241,7 @@ namespace Midterm_Project
 
         public void SortBooksByGenre(List<Book> books)
         {
-            List<Book> booksByAuthor = books.OrderBy(b => b.NumberOfPages).ThenBy(b => b.Title).ToList();
+            List<Book> booksByAuthor = books.OrderBy(b => b.genre).ThenBy(b => b.Title).ToList();
 
             foreach (Book book in booksByAuthor)
             {
@@ -251,7 +251,7 @@ namespace Midterm_Project
 
         public void SortBooksByYear(List<Book> books)
         {
-            List<Book> booksByAuthor = books.OrderBy(b => b.YearOfPublication).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+            List<Book> booksByAuthor = books.OrderByDescending(b => b.YearOfPublication).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
 
             foreach (Book book in booksByAuthor)
             {
@@ -300,8 +300,10 @@ namespace Midterm_Project
             }
         }
 
-        public static void CheckOut(List<Book> orderedBookList)
+        public void CheckOut(List<Book> orderedBookList)
         {
+            WriteIO(orderedBookList);
+            
 			if (AskToCheckOut())
 			{
 				CurrentBook = orderedBookList[GetUserInt("Please enter the index of the book you'd like") - 1];
@@ -328,9 +330,10 @@ namespace Midterm_Project
 					Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
 					Console.WriteLine("Thank You!\n");
 				}
+
 			}
 		}
-        public static void ReturnBook(Book book)
+        public void ReturnBook(Book book)
         {
             book.status = Status.Available;
             Console.WriteLine($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
@@ -385,25 +388,26 @@ namespace Midterm_Project
             return input;
         }
 
-        public void ReadAndWriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
+        public void WriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
 
         //ORRRR I dont ever need to readstream. Just use displayfunction.
         //ORRR just make this a writeIO file and save results after each sort. make sure upon initialization of program, booklist = whats in the write io file
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            File.OpenWrite(currentDirectory);//creates a file in user's current directory
-            Console.WriteLine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName);
-            StreamWriter sw = new StreamWriter(currentDirectory, false);
-            StreamReader sr = new StreamReader(currentDirectory);
+            string filePath = Directory.GetCurrentDirectory() + @"\text.txt";
+            //File.OpenWrite(filePath);//creates a file in user's current directory
+            Console.WriteLine(filePath);
+            StreamWriter sw = new StreamWriter(filePath, false);
+            //StreamReader sr = new StreamReader(filePath);
 
-            foreach (Book book in sortedBooks)//possibly Book book in categorized books
+            for (int i = 0; i < sortedBooks.Count; i++)
             {
-                sw.WriteLine(DisplayIndividualBookInformation(book));
+                sw.WriteLine($"{sortedBooks[i].Title}, {sortedBooks[i].Author}, {sortedBooks[i].NumberOfPages}, {sortedBooks[i].YearOfPublication}, {sortedBooks[i].NumberOfPages}, {sortedBooks[i].genre}, {sortedBooks[i].status}");
             }
 
+
             sw.Close();
-            Console.WriteLine(sr.ReadToEnd());
-            sr.Close();
+            //Console.WriteLine(sr.ReadToEnd());
+            //sr.Close();
             
             //File.OpenWrite(filePath3);
             //function below will take in a list parameter; add logic AFTER checking a book or returning a book OR sorting books list
@@ -415,6 +419,16 @@ namespace Midterm_Project
             //step 6: sw.close
             //step 7: cw(sr.readtoend());
             //step 8: sr.close();
+        }
+        public void ReadIOToList(List<Book> sortedBooks)
+        {
+            string filePath = Directory.GetCurrentDirectory() + "text.txt";
+            String[] lines = File.ReadAllLines(filePath);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string [] words = lines[i].Split(',');
+                books.Add(new Book(words[0], words[1], int.Parse(words[2]), int.Parse(words[3]), (Genre)Enum.Parse(typeof(Genre), words[4]), (Status)Enum.Parse(typeof(Status), words[5])));
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Midterm_Project
             Library library1 = new Library();
 
             //library1.DisplayBooksAllInformation(library1.books);
-
+            //library1.ReturnBook(library1.books[0]); ReturnBook Function works
 
             // always loop to keep asking user what they want to do
             while (true)
