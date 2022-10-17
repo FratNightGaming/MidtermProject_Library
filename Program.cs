@@ -7,9 +7,9 @@ namespace Midterm_Project
         static void Main()//create arrays to contain possible user inputs
             //after display books (in display function), user should be able to press a key to sort by info, after which streamwriter will write that list to text file
         {
-            Console.WriteLine("Welcome to the Library!!!");
+            Console.Write("Welcome to the Library!!! ");
             Library library1 = new Library();
-
+            library1.ReadIO();
             //library1.DisplayBooksAllInformation(library1.books);
 
 
@@ -31,7 +31,7 @@ namespace Midterm_Project
                             if (userInput > 0 && userInput <= library1.books.Count)
                             {
                                 Console.WriteLine(Library.DisplayIndividualBookInformation(library1.books[userInput - 1]));
-                                Library.CheckOut(library1.books);
+                                library1.CheckOut(library1.books);
                             }
                             else
                             {
@@ -60,7 +60,7 @@ namespace Midterm_Project
                         {
                             List<Book> booksByTitle = library1.SortBooksByTitle(library1.books);
                             Console.WriteLine();
-                            Library.CheckOut(booksByTitle);
+                            library1.CheckOut(booksByTitle);
                             break;
                             
                         }
@@ -68,7 +68,7 @@ namespace Midterm_Project
                         {
                             List<Book> booksByAuthor = library1.SortBooksByAuthor(library1.books);
                             Console.WriteLine();
-                            Library.CheckOut(booksByAuthor);
+							library1.CheckOut(booksByAuthor);
                             break;
 
                         }
@@ -76,28 +76,28 @@ namespace Midterm_Project
                         {
                             List<Book> booksByPageLength = library1.SortBooksByPages(library1.books);
                             Console.WriteLine();
-                            Library.CheckOut(booksByPageLength);
+							library1.CheckOut(booksByPageLength);
                             break;
                         }
                         else if (userInput2 == "4" || userInput2 == "status" || userInput2 == "s")
                         {
                             List<Book> booksByStatus = library1.SortBooksByStatus(library1.books);
                             Console.WriteLine();
-                            Library.CheckOut(booksByStatus);
+							library1.CheckOut(booksByStatus);
                             break;
                         }
                         else if (userInput2 == "5" || userInput2 == "genre" || userInput2 == "g")
                         {
                             List<Book> booksByGenre = library1.SortBooksByGenre(library1.books);
                             Console.WriteLine();
-                            Library.CheckOut(booksByGenre);
+							library1.CheckOut(booksByGenre);
                             break;
                         }
                         else if (userInput2 == "6" || userInput2 == "year" || userInput2 == "y")
                         {
                             List<Book> booksByYear = library1.SortBooksByYear(library1.books);
                             Console.WriteLine();
-                            Library.CheckOut(booksByYear);
+							library1.CheckOut(booksByYear);
                             break;
                         }
                         else
@@ -135,14 +135,16 @@ namespace Midterm_Project
 
                 else if (input == "4" || input == "c" || input == "checkin" || input == "check-in" || input == "checkin books" || input == "search books")
                 {
-                    // checkin method for later
-                }
+                    library1.ReturnBook();
 
-
-                Console.WriteLine("ask to check out here?"); //prompt to check out selected books, and exit library program?
-                //also place for delete library list prompt?
-            }
+				}
+				else if (input == "burn")
+				{
+                    library1.Burn();
+				}
+			}
         }
+
     }
 }
 

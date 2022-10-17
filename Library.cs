@@ -14,35 +14,47 @@ namespace Midterm_Project
 {
     public class Library
     {
-        public List<Book> books { get; set; } = new List<Book>();
-        public List<Book> booksCheckedOut { get; set; } = new List<Book>();
+        public List<Book> books { get; set; } = new List<Book>(); 
+		public List<Book> booksFromFile { get; set; } = new List<Book>(); 
+		public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
         public static Book? CurrentBook { get; set; }
-
-        public List<Book>? CurrentBookList { get; set; }
+        public DateTime current = DateTime.Now;
+        public static List<Book>? CurrentBookList { get; set; }
 
 
 		public Library()//if else check to see if streamwriter file exists
         {
-            books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.fantasy, Book.Status.checked_out));
-            books.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.science_fiction, Book.Status.available));
-            books.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.fantasy, Book.Status.checked_out));
-            books.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.fantasy, Book.Status.checked_out));
-            books.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.fantasy, Book.Status.available));
-            books.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.nonfiction, Book.Status.available));
-            books.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.nonfiction, Book.Status.available));
-            books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available));
-            books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available));
-            books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available));
-            books.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available));
-
+			booksFromFile.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.fantasy, Book.Status.available, current));
+			booksFromFile.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.fantasy, Book.Status.checked_out, current));
+			booksFromFile.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.fantasy, Book.Status.available, current));
+			booksFromFile.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.fantasy, Book.Status.available, current));
+			booksFromFile.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.fantasy, Book.Status.available, current));
+            booksFromFile.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.fantasy, Book.Status.available, current));
+            booksFromFile.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.fantasy, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.science_fiction, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.fantasy, Book.Status.checked_out , current));
+            booksFromFile.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.fantasy, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.fantasy, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.fantasy, Book.Status.available, current));
+            booksFromFile.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.nonfiction, Book.Status.available, current));
+            booksFromFile.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.nonfiction, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available, current));
+            booksFromFile.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available, current));
+			booksFromFile.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available, current));
+            booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
+            booksFromFile.Add(new Book("Calvin and Hobbs", "Bill Watterson", 3160, 1985, Book.Genre.graphic_novel, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("Peanuts", "Charles M. Schulz", 17897, 1950, Book.Genre.graphic_novel, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Martian", "Andy Weir", 369, 2011, Book.Genre.science_fiction, Book.Status.available, current));
+            booksFromFile.Add(new Book("The Stormlight Archive - Book 1: The Way of Kings", "Brandon Sanderson", 1007, 2010, Book.Genre.fantasy, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("Salt: A World History", "Mark Kurlansky", 496, 2002, Book.Genre.history, Book.Status.checked_out, current));
+            booksFromFile.Add(new Book("Nonviolence: The History of a Dangerous Idea", "Mark Kurlansky", 244, 2006, Book.Genre.history, Book.Status.available, current));
+            booksFromFile.Add(new Book("SPQR: A History of Ancient Rome", "Mary Beard", 606, 2015, Book.Genre.history, Book.Status.available, current));
+            booksFromFile.Add(new Book("Romeo and Juliet", "Willian Shakespeare", 148, 1597, Book.Genre.romance, Book.Status.available, current));
+            booksFromFile.Add(new Book("Sherlock Holmes: A Study in Scarlet", "Sir Arthur Conan Doyle", 230, 1887, Book.Genre.mystery, Book.Status.checked_out, current));   
+            booksFromFile.Add(new Book("The Story of the Streets", "Mike Skinner", 304, 2012, Book.Genre.biography, Book.Status.available, current));
+            booksFromFile.Add(new Book("The King in Yellow", "Robert W. Chambers", 316, 1895, Book.Genre.horror, Book.Status.available, current));
+            booksFromFile.Add(new Book("Dune", "Frank Herbert", 412, 1965, Book.Genre.science_fiction, Book.Status.checked_out, current));
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
@@ -62,7 +74,7 @@ namespace Midterm_Project
                     books[i].Author,
                     books[i].genre,
                     books[i].NumberOfPages,
-                    books[1].YearOfPublication,
+                    books[i].YearOfPublication,
                     books[i].status); 
 
                 //Console.WriteLine(DisplayIndividualBookInformation(books[i]));
@@ -287,12 +299,6 @@ namespace Midterm_Project
             return bookInformation;
         }
 
-        public static void CheckOutBook(Book book)
-        {
-            Console.WriteLine($"Thank you for checking out {book.Title}");
-        }
-
-
 		public static bool AskToCheckOut()
 		{
 			string choice = GetUserInput("Would you like to check out any of these books out? Y/N").ToUpper().Trim();
@@ -315,7 +321,7 @@ namespace Midterm_Project
             }
         }
 
-        public static void CheckOut(List<Book> orderedBookList)
+        public void CheckOut(List<Book> orderedBookList)
         {
 			if (AskToCheckOut())
 			{
@@ -333,69 +339,62 @@ namespace Midterm_Project
 
 				else if (CurrentBook.status == Book.Status.available)
 				{
+
 					// get date
 					DateTime current = DateTime.Today;
 					DateTime dueDate = current.AddDays(14);
                     //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
-					CurrentBook.DueDate = dueDate;
-					CurrentBook.status = Status.checked_out;
+					books.Where(b => b.Title == CurrentBook.Title).First().DueDate = dueDate;
+					books.Where(b => b.Title == CurrentBook.Title).First().status = Status.checked_out;
 					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
 					Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
 					Console.WriteLine("Thank You!\n");
 				}
 			}
+
+            WriteIO(books);
+
 		}
-
-       /* public static void CheckOutSingleBook(List<Book> orderedBookList)
+        public void ReturnBook()
         {
-           string choice = GetUserInput("Would you like to check out this book out? Y/N").ToUpper().Trim();
 
-            while (true)
-            {
-                if (choice == "Y" || choice == "YES")
+			List<Book> checkedOut = new List<Book>();
+            Book toReturn = null;
+			int index = 0;
+			foreach (Book book in books)
+			{
+				if (book.status == Book.Status.checked_out)
+				{
+					index++;
+					checkedOut.Add(book);
+					Console.WriteLine(index + " " + Library.DisplayIndividualBookInformation(book));
+				}
+			}
+			if (checkedOut.Count > 0)
+			{
+				//print list of books with status checked out
+				int toParse = Library.GetUserInt("what book are you returning?") - 1;
+                while (toParse+1 > index || toParse < 0)
                 {
-                    if (CurrentBook.status == Book.Status.checked_out)
+                    Console.WriteLine("that isnt an index!");
+					toParse = Library.GetUserInt("what book are you returning?") - 1;
+                    if (!(toParse + 1 > index || toParse < 0))
                     {
-                        Console.WriteLine("This book is checked out! please be more careful");//display when due date is
+                        break;
                     }
-
-                    else if (CurrentBook.status == Book.Status.hold)
-                    {
-                        Console.WriteLine("This book is on hold! please be more careful");//display when hold ends
-                    }
-
-                    else if (CurrentBook.status == Book.Status.available)
-                    {
-                        // get date
-                        DateTime current = DateTime.Today;
-                        DateTime dueDate = current.AddDays(14);
-                        //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
-                        CurrentBook.DueDate = dueDate;
-                        CurrentBook.status = Status.checked_out;
-                        string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
-                        Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
-                        Console.WriteLine("Thank You!\n");
-                    }
-                }
-                else if (choice == "N" || choice == "NO")
-                {
-                    Console.WriteLine("We hope you find another book you'd like!");
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("Input not recognized. Please try again.");
-                    return;
-                }
-            }
-        }*/
-
-        public static void ReturnBook(Book book)
-        {
-            book.status = Status.available;
-            Console.Write($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
-        }
-
+				}
+				// listofbookscheckedout
+                
+				toReturn = checkedOut.Where(b => b.Title == checkedOut[toParse].Title).First();
+				toReturn.status = Status.available;
+				Console.WriteLine($"{toReturn.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
+			}
+			else
+			{
+				Console.WriteLine("theres no books checked out!");
+			}
+			WriteIO(books);
+		}
         public static string GetUserInput(string message)//implement a throw into catch for input == null
         {
             string input = String.Empty;
@@ -446,38 +445,72 @@ namespace Midterm_Project
             return input;
         }
 
-        public void ReadAndWriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
+        public void WriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
 
         //ORRRR I dont ever need to readstream. Just use displayfunction.
         //ORRR just make this a writeIO file and save results after each sort. make sure upon initialization of program, booklist = whats in the write io file
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            File.OpenWrite(currentDirectory);//creates a file in user's current directory
-            Console.WriteLine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName);
-            StreamWriter sw = new StreamWriter(currentDirectory, false);
-            StreamReader sr = new StreamReader(currentDirectory);
+            StreamWriter sw;
 
-            foreach (Book book in sortedBooks)//possibly Book book in categorized books
-            {
-                sw.WriteLine(DisplayIndividualBookInformation(book));
-            }
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+			string filePath = currentDirectory + @"\testlist4.txt";
 
-            sw.Close();
-            Console.WriteLine(sr.ReadToEnd());
-            sr.Close();
-            
-            //File.OpenWrite(filePath3);
-            //function below will take in a list parameter; add logic AFTER checking a book or returning a book OR sorting books list
-            //step 1: Create File for user (File.OpenWrite(path)) //how do i ensure user has a compatible filepath?
-            //step 2: streamWriter sw = new StreamWriter(path, false)
-            //step 3: streamReader sr = new StreamReader(path)
-            //step 4: for loop going through length of current list *Create prop called "CurrentList" and assign it after sorting books by category
-            //step 5: sw.writeline(list[i].name, list[i].author, list[i].status, etc.)
-            //step 6: sw.close
-            //step 7: cw(sr.readtoend());
-            //step 8: sr.close();
+			sw = new StreamWriter(filePath, false);
+			foreach (Book book in sortedBooks)
+			{
+				sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
+			}
+			sw.Close();
         }
-    }
+
+        public void ReadIO()
+        {
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+			string filePath = currentDirectory + @"\testlist4.txt";
+            bool fileExist = false;
+            try
+            {
+                StreamReader srt = new StreamReader(filePath);
+                fileExist = true;
+                srt.Close();
+
+			} catch (FileNotFoundException)
+            {
+                WriteIO(booksFromFile);
+				Console.WriteLine("\nwriting to: " + filePath);
+			}
+			double entries = 0;
+			using (StreamReader sr = new StreamReader(filePath))
+			{
+				while (sr.ReadLine() != null)
+				{
+					entries++;
+				}
+				Console.Write("we have " + entries+" books\n");
+				for (int i = 0; i < entries; i++)
+				{
+                    string line = File.ReadLines(filePath).Skip(i - 1).Take(1).First();
+				    string[] lineValues = line.Split(",");
+                    books.Add(new Book(lineValues[0], lineValues[1], //title / author
+                    int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
+					(Genre) Enum.Parse(typeof(Genre), lineValues[4]), // parse enum genre
+                    (Status) Enum.Parse(typeof(Status), lineValues[5]), // parse status enum
+                    DateTime.Parse(lineValues[6]))); // parse datetime
+					}
+                sr.Close();
+			}
+		}
+
+        public void Burn()
+        {
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+			string filePath = currentDirectory + @"\testlist4.txt";
+			StreamReader sr = new StreamReader(filePath);
+			File.Delete(filePath);
+			sr.Close();
+            Console.WriteLine("look at what you've done.");
+		}
+	}
 }
 
 /*Write a console program which allows a user to search a library catalog and check out books.
