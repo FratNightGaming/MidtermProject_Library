@@ -4,7 +4,8 @@ namespace Midterm_Project
 {
     public class Program
     {
-        static void Main()
+        static void Main()//create arrays to contain possible user inputs
+            //after display books (in display function), user should be able to press a key to sort by info, after which streamwriter will write that list to text file
         {
             Console.WriteLine("Welcome to the Library!!!");
             Library library1 = new Library();
@@ -15,25 +16,22 @@ namespace Midterm_Project
             // always loop to keep asking user what they want to do
             while (true)
             {
-                string input = Library.GetUserInput("what would you like to do? (1)list books, (2)search, or (3)checkin");
+                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, or (4)Check-in:  ");
 
-                if (input == "1" || input == "list" || input == "list books")
+                if (input == "d" || input == "display" || input == "display book" || input == "display books" || input == "1")
                 {
                     Library.DisplayBooksAllInformation(library1.books);
                     // AskToCheckOut() will come when books are printed then will ask y/n - we want as much in method as possible
-
-                    int userInput = -1;
-                    while (userInput == -1)
+                    while (true)
                     {
                         try
                         {
                             Console.WriteLine($"Select the book you would like to check out from the list above. Enter 1-{library1.books.Count}");
-                            userInput = int.Parse(Console.ReadLine());
+                            int userInput = int.Parse(Console.ReadLine());
                             if (userInput > 0 && userInput <= library1.books.Count)
                             {
-                                Console.WriteLine("test here");
-
-                                library1.DisplayIndividualBookInformation(library1.books[userInput - 1]);
+                                Console.WriteLine(Library.DisplayIndividualBookInformation(library1.books[userInput - 1]));
+                                Library.CheckOut(library1.books);
                             }
                             else
                             {
@@ -48,19 +46,82 @@ namespace Midterm_Project
                             Console.WriteLine();
                             continue;
                         }
+                        break;
                     }
                 }
-                else if (input == "2" || input == "search")
+
+                else if (input == "2" || input == "sort" || input == "list" || input == "sort list" || input == "sl")
                 {
-                    input = Library.GetUserInput("would you like to search by (1)title, (2)author, or (3)genre");
+                    string userInput2 = Library.GetUserInput("What would you like to sort by? (1)Title, (2)Author, (3)Page Length, (4)Status, (5)Genre, or (6)Year: ");
+                    while (true)
+                    {
+                        //will convert this to a method later?
+                        if (userInput2 == "1" || userInput2 == "title" || userInput2 == "t")
+                        {
+                            List<Book> booksByTitle = library1.SortBooksByTitle(library1.books);
+                            Console.WriteLine();
+                            Library.CheckOut(booksByTitle);
+                            break;
+                            
+                        }
+                        else if (userInput2 == "2" || userInput2 == "author" || userInput2 == "a")
+                        {
+                            List<Book> booksByAuthor = library1.SortBooksByAuthor(library1.books);
+                            Console.WriteLine();
+                            Library.CheckOut(booksByAuthor);
+                            break;
+
+                        }
+                        else if (userInput2 == "3" || userInput2 == "page" || userInput2 == "length" || userInput2 == "page length" || userInput2 == "pagelength" || userInput2 == "p" || userInput2 == "pl")
+                        {
+                            List<Book> booksByPageLength = library1.SortBooksByPages(library1.books);
+                            Console.WriteLine();
+                            Library.CheckOut(booksByPageLength);
+                            break;
+                        }
+                        else if (userInput2 == "4" || userInput2 == "status" || userInput2 == "s")
+                        {
+                            List<Book> booksByStatus = library1.SortBooksByStatus(library1.books);
+                            Console.WriteLine();
+                            Library.CheckOut(booksByStatus);
+                            break;
+                        }
+                        else if (userInput2 == "5" || userInput2 == "genre" || userInput2 == "g")
+                        {
+                            List<Book> booksByGenre = library1.SortBooksByGenre(library1.books);
+                            Console.WriteLine();
+                            Library.CheckOut(booksByGenre);
+                            break;
+                        }
+                        else if (userInput2 == "6" || userInput2 == "year" || userInput2 == "y")
+                        {
+                            List<Book> booksByYear = library1.SortBooksByYear(library1.books);
+                            Console.WriteLine();
+                            Library.CheckOut(booksByYear);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{library1.books.Count}.");
+                            Console.WriteLine();
+                            continue;
+                        }
+                    }  
+                    
+                }
+
+                else if (input == "3" || input == "search" || input == "search book" || input == "search books" || input == "s")
+                {
+                    input = Library.GetUserInput("What would you like to search by: (1)Title, (2)Author, or (3)Genre");
                     if (input == "1" || input == "title")
                     {
                         library1.SearchBookByTitle(library1.books);
-                        // AskToCheckOut() will come for searches as well
+                        Console.WriteLine();
                     }
                     else if (input == "2" || input == "author")
                     {
                         library1.SearchBookByAuthor(library1.books);
+                        Console.WriteLine();
                     }
                     // love to do genres later
 
@@ -68,25 +129,19 @@ namespace Midterm_Project
                     else if (input == "3" || input == "genre")
                     {
                         library1.SearchBookByGenre(library1.books);
+                        Console.WriteLine();
                     }
                 }
 
-                else if (input == "3" || input == "checkin")
+                else if (input == "4" || input == "c" || input == "checkin" || input == "check-in" || input == "checkin books" || input == "search books")
                 {
                     // checkin method for later
                 }
+
+
+                Console.WriteLine("ask to check out here?"); //prompt to check out selected books, and exit library program?
+                //also place for delete library list prompt?
             }
-        }
-
-        public static void DisplayBooksByTitle()
-        {
-
-        }
-
-
-        public static void ReturnBook()
-        {
-
         }
     }
 }
