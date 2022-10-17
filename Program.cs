@@ -80,19 +80,6 @@ namespace Midterm_Project
                     // checkin method
                 }
             }
-
-
-        }
-
-        public static void DisplayBooksByTitle()
-        {
-
-        }
-
-
-        public static void ReturnBook()
-        {
-
         }
     }
 }
