@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
-using static Midterm_Project.Book;
+using static Midterm_Project.Book;//Ryan, is this how you access the "Genre" variable?
 
 namespace Midterm_Project
 {
@@ -13,10 +14,12 @@ namespace Midterm_Project
         public List<Book> books { get; set; } = new List<Book>();
         public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
-        public static Book Selection { get; set; }
+        public static Book? CurrentBook { get; set; }
+
+        public List<Book>? CurrentBookList { get; set; }
 
 
-		public Library()
+		public Library()//if else check to see if streamwriter file exists
         {
             books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.Fantasy, Book.Status.Available));
             books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.Fantasy, Book.Status.Checked_Out));
@@ -56,22 +59,21 @@ namespace Midterm_Project
                     books[i].NumberOfPages,
                     books[i].status);
 
-                //DisplayIndividualBookInformation(books[i]);
+                //Console.WriteLine(DisplayIndividualBookInformation(books[i]));
             }
             Console.WriteLine();
-
-
         }
 
         public void SearchBookByAuthor(List<Book> books)
         {
             //gets what the user wants to find
-			string author = GetUserInput("which author are you looking for?");
+			string author = GetUserInput("Which author are you looking for?");
 
 			// checks to see if there are going to be results
 			int bookCount = 0;
 			List<Book> booksByAuthor = new List<Book>();
-			if (books.Any(b => b.Author == author))
+			
+            if (books.Any(b => b.Author == author))
 			{
 				Console.WriteLine($"\n{author} found:");
 			}
@@ -80,7 +82,7 @@ namespace Midterm_Project
 			booksByAuthor = books.Where(b => b.Author == author).ToList();
 			foreach (Book book in booksByAuthor)
 			{
-				DisplayIndividualBookInformation(book);
+                Console.WriteLine(DisplayIndividualBookInformation(book));
 				bookCount++;
 			}
 
@@ -89,6 +91,7 @@ namespace Midterm_Project
             {
                 Console.WriteLine("Author not found.");
             }
+
             else
             {
                 CheckOut(booksByAuthor);
@@ -98,21 +101,23 @@ namespace Midterm_Project
         public void SearchBookByTitle(List<Book> books)
         {
 			// gets what the user wants to find
-			string title = GetUserInput("which title are you looking for?");
+			string title = GetUserInput("Which book are you looking for?");
 
 			// checks to see if there are going to be results
+            //lets just do if (books.count == 0). no need for variable
 			int bookCount = 0;
-			List<Book> booksByTitle = new List<Book>();
+
 			if (books.Any(b => b.Title == title))
 			{
 				Console.WriteLine($"\n{title} found:");
 			}
 
 			// brings all books found into a list and then prints them
-			booksByTitle = books.Where(b => b.Title == title).ToList();
-			foreach (Book book in booksByTitle)
+			List<Book> booksByTitle = books.Where(b => b.Title == title).ToList();
+			
+            foreach (Book book in booksByTitle)
 			{
-				DisplayIndividualBookInformation(book);
+                Console.WriteLine(DisplayIndividualBookInformation(book));
 				bookCount++;
 			}
 
@@ -121,6 +126,7 @@ namespace Midterm_Project
             {
                 Console.WriteLine($"{title} not found.");
             }
+            
 			else
 			{
 				CheckOut(booksByTitle);
@@ -157,17 +163,29 @@ namespace Midterm_Project
 			// checks to see if there are going to be results
 			int bookCount = 0;
 			List<Book> booksByGenre = new List<Book>();
-			if (books.Any(b => b.genre == genre))
+			
+            if (books.Any(b => b.genre == genre))
             {
               Console.WriteLine($"\n{genre} found:");
             }
 
             // brings all books found into a list and then prints them
             booksByGenre = books.Where(b => b.genre == genre).ToList();
-			foreach (Book book in booksByGenre)
+
+            Console.Write("{0,-73} {1,-25} {2,-20} {3,-10} {4,-1} \n",
+                           "Title", "Author", "Genre", "Pages", "Status");
+
+            foreach (Book book in booksByGenre)
 			{
-				DisplayIndividualBookInformation(book);
-				bookCount++;
+                bookCount++;
+                Console.Write($"{bookCount}");
+
+                Console.WriteLine(DisplayIndividualBookInformation(book)); 
+            }
+
+			if (bookCount == 0)
+			{
+				Console.WriteLine($"{genre} not found.");
 			}
 
 			// saying if theres no books or asks to checkout a book
@@ -175,117 +193,228 @@ namespace Midterm_Project
             {
                 Console.WriteLine($"{genre} not found.");
             }
+
             else 
             {
                 CheckOut(booksByGenre);
 			}
 		}
-
-        public void DisplayIndividualBookInformation(Book book)
+        public void SortBooksByTitle(List<Book> books)
         {
-            Console.WriteLine($"\nTitle: {book.Title,10}\n" +
+            List<Book> booksByTitle = books.OrderBy(b => b.Title).ToList();
+
+            foreach (Book book in booksByTitle)
+            {
+                Console.WriteLine(DisplayIndividualBookInformation(book));
+            }
+        }
+
+        public void SortBooksByAuthor(List<Book> books)
+        {
+            List<Book> booksByAuthor = books.OrderBy(b => b.Author).ThenBy(b => b.Title).ToList();
+
+            foreach (Book book in booksByAuthor)
+            {
+                Console.WriteLine(DisplayIndividualBookInformation(book));
+            }
+        }
+
+        public void SortBooksByPages(List<Book> books)
+        {
+            List<Book> booksByPages = books.OrderBy(b => b.genre).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+
+            foreach (Book book in booksByPages)
+            {
+                Console.WriteLine(DisplayIndividualBookInformation(book));
+            }
+        }
+
+        public void SortBooksByStatus(List<Book> books)
+        {
+            List<Book> booksByStatus = books.OrderBy(b => b.status).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+
+            foreach (Book book in booksByStatus)
+            {
+                Console.WriteLine(DisplayIndividualBookInformation(book));
+            }
+        }
+
+        public void SortBooksByGenre(List<Book> books)
+        {
+            List<Book> booksByAuthor = books.OrderBy(b => b.NumberOfPages).ThenBy(b => b.Title).ToList();
+
+            foreach (Book book in booksByAuthor)
+            {
+                Console.WriteLine(DisplayIndividualBookInformation(book));
+            }
+        }
+
+        public void SortBooksByYear(List<Book> books)
+        {
+            List<Book> booksByAuthor = books.OrderBy(b => b.YearOfPublication).ThenBy(b => b.Author).ThenBy(b => b.Title).ToList();
+
+            foreach (Book book in booksByAuthor)
+            {
+                Console.WriteLine(DisplayIndividualBookInformation(book));
+            }
+        }
+        public static string DisplayIndividualBookInformation(Book book)//do we want to add yearofpublication?
+        {
+            //will add in column alignment here for better visibility         
+            string bookInformation = $"{book.Title, -73} {book.Author, -25} {book.genre, -20} {book.NumberOfPages, -10} {book.status}";
+                
+            return bookInformation;
+            //DisplayIndividualBookInformation(books[i]);
+
+           /* Console.WriteLine($"\nTitle: {book.Title,10}\n" +
                 $"\tAuthor: {book.Author,10}\n" +
                 $"\tPages: {book.NumberOfPages}\n" +
-                $"\tStatus: {book.status}\n");
+                $"\tStatus: {book.status}\n");*/
         }
 
         public static void CheckOutBook(Book book)
         {
-            Console.WriteLine($"thanks for being interested in {book.Title}");
-
-
+            Console.WriteLine($"Thank you for checking out {book.Title}");
         }
 
 
 		public static bool AskToCheckOut()
 		{
-			string choice = GetUserInput("would you like to check any of these books out? y/n").ToLower();
+			string choice = GetUserInput("Would you like to check out any of these books out? Y/N").ToUpper().Trim();
 			
-			if (choice == "y")
+			if (choice == "Y" || choice == "YES")
             {
                 return true;
             }
-            else if (choice == "n")
+
+            else if (choice == "N" || choice == "NO")
             {
-                Console.WriteLine("we hope you find another book you'd like!");
+                Console.WriteLine("We hope you find another book you'd like!");
                 return false;
             }
+
             else
             {
-            Console.WriteLine("out of y/n if");
-            return true;
+                Console.WriteLine("Input not recognized. Please try again.");
+                return AskToCheckOut();
             }
-
         }
-        public static void CheckOut(List<Book> currentList)
+
+        public static void CheckOut(List<Book> orderedBookList)
         {
 			if (AskToCheckOut())
 			{
-				Selection = currentList[GetUserInt("please enter the index of the book you'd like") - 1];
-				if (Selection.status == Book.Status.Checked_Out)
-				{
-					Console.WriteLine("This book is checked out! please be more careful");
+				CurrentBook = orderedBookList[GetUserInt("Please enter the index of the book you'd like") - 1];
 
-				}
-				else if (Selection.status == Book.Status.Hold)
+				if (CurrentBook.status == Book.Status.Checked_Out)
 				{
-					Console.WriteLine("this book is on hold! please be more careful");
+					Console.WriteLine("This book is checked out! please be more careful");//display when due date is
 				}
-				else if (Selection.status == Book.Status.Available)
+
+				else if (CurrentBook.status == Book.Status.Hold)
+				{
+					Console.WriteLine("This book is on hold! please be more careful");//display when hold ends
+				}
+
+				else if (CurrentBook.status == Book.Status.Available)
 				{
 					// get date
 					DateTime current = DateTime.Today;
-					current = current.AddDays(14);
-					Selection.DueDate = current;
-					Selection.status = Status.Checked_Out;
-					string formattedDate = Selection.DueDate.ToString("MMMM/d/yyyy");
-					Console.WriteLine($"{Selection.Title} will be due back on {formattedDate}");
+					DateTime dueDate = current.AddDays(14);
+                    //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
+					CurrentBook.DueDate = dueDate;
+					CurrentBook.status = Status.Checked_Out;
+					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
+					Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
 					Console.WriteLine("Thank You!\n");
 				}
 			}
 		}
-
-        public static string GetUserInput(string msg)
+        public static void ReturnBook(Book book)
         {
-            string input = null;
+            book.status = Status.Available;
+            Console.WriteLine($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
+        }
+        public static string GetUserInput(string message)//implement a throw into catch for input == null
+        {
+            string input = String.Empty;
+
             try
             {
-                Console.WriteLine(msg);
+                Console.WriteLine(message);
                 input = Console.ReadLine();
             }
+
             catch (Exception)
             {
-                Console.WriteLine("that wasnt't a valid input");
-                GetUserInput(msg);
-
+                Console.WriteLine("Invalid input. Please try again.");
+                GetUserInput(message);//possibly return GetUserInput(message) - possible issue with call stack
             }
+
             if (input == null)
             {
-                Console.WriteLine("you didn't seem to type anything");
-                GetUserInput(msg);
+                Console.WriteLine("No input was detected. Please try again.");
+                GetUserInput(message);//possibly return GetUserInput(message) - possible issue with call stack
             }
+
             return input;
         }
-        public static int GetUserInt(string msg)
+        public static int GetUserInt(string message)
         {
             int input = -1;
+
             try
             {
-                Console.WriteLine(msg);
+                Console.WriteLine(message);
                 input = int.Parse(Console.ReadLine());
             }
+
             catch (FormatException)
             {
-                Console.WriteLine("that wasnt't a valid input");
-                GetUserInput(msg);
+                Console.WriteLine("Invalid input. Please try again.");
+                GetUserInput(message);//possibly return GetUserInput(message) - possible issue with call stack
 
             }
+
             if (input == -1)
             {
-                Console.WriteLine("you didn't seem to type anything");
-                GetUserInput(msg);
+                Console.WriteLine("No input was detected. Please try again.");
+                GetUserInput(message);//possibly return GetUserInput(message) - possible issue with call stack
             }
+
             return input;
+        }
+
+        public void ReadAndWriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
+
+        //ORRRR I dont ever need to readstream. Just use displayfunction.
+        //ORRR just make this a writeIO file and save results after each sort. make sure upon initialization of program, booklist = whats in the write io file
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            File.OpenWrite(currentDirectory);//creates a file in user's current directory
+            Console.WriteLine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName);
+            StreamWriter sw = new StreamWriter(currentDirectory, false);
+            StreamReader sr = new StreamReader(currentDirectory);
+
+            foreach (Book book in sortedBooks)//possibly Book book in categorized books
+            {
+                sw.WriteLine(DisplayIndividualBookInformation(book));
+            }
+
+            sw.Close();
+            Console.WriteLine(sr.ReadToEnd());
+            sr.Close();
+            
+            //File.OpenWrite(filePath3);
+            //function below will take in a list parameter; add logic AFTER checking a book or returning a book OR sorting books list
+            //step 1: Create File for user (File.OpenWrite(path)) //how do i ensure user has a compatible filepath?
+            //step 2: streamWriter sw = new StreamWriter(path, false)
+            //step 3: streamReader sr = new StreamReader(path)
+            //step 4: for loop going through length of current list *Create prop called "CurrentList" and assign it after sorting books by category
+            //step 5: sw.writeline(list[i].name, list[i].author, list[i].status, etc.)
+            //step 6: sw.close
+            //step 7: cw(sr.readtoend());
+            //step 8: sr.close();
         }
     }
 }

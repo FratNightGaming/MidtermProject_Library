@@ -4,7 +4,8 @@ namespace Midterm_Project
 {
     public class Program
     {
-        static void Main()
+        static void Main()//create arrays to contain possible user inputs
+            //after display books (in display function), user should be able to press a key to sort by info, after which streamwriter will write that list to text file
         {
             Console.WriteLine("Welcome to the Library!!!");
             Library library1 = new Library();
@@ -15,7 +16,7 @@ namespace Midterm_Project
             // always loop to keep asking user what they want to do
             while (true)
             {
-                string input = Library.GetUserInput("what would you like to do? (1)list books, (2)search, or (3)checkin");
+                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Search, or (3)Check-in: ");
 
                 if (input == "1" || input == "list" || input == "list books")
                 {
@@ -32,8 +33,7 @@ namespace Midterm_Project
                             if (userInput > 0 && userInput <= library1.books.Count)
                             {
                                 Console.WriteLine("test here");
-
-                                library1.DisplayIndividualBookInformation(library1.books[userInput - 1]);
+                                Console.WriteLine(Library.DisplayIndividualBookInformation(library1.books[userInput - 1]));
                             }
                             else
                             {
@@ -50,6 +50,7 @@ namespace Midterm_Project
                         }
                     }
                 }
+
                 else if (input == "2" || input == "search")
                 {
                     input = Library.GetUserInput("would you like to search by (1)title, (2)author, or (3)genre");
@@ -62,29 +63,20 @@ namespace Midterm_Project
                     {
                         library1.SearchBookByAuthor(library1.books);
                     }
+                    // love to do genres later
+
+                    // asktocheckout again 
                     else if (input == "3" || input == "genre")
                     {
                         library1.SearchBookByGenre(library1.books);
                     }
                 }
+
                 else if (input == "3" || input == "checkin")
                 {
                     // checkin method for later
                 }
             }
-
-
-        }
-
-        public static void DisplayBooksByTitle()
-        {
-
-        }
-
-
-        public static void ReturnBook()
-        {
-
         }
     }
 }
