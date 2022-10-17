@@ -7,7 +7,7 @@ namespace Midterm_Project
         static void Main()//create arrays to contain possible user inputs
             //after display books (in display function), user should be able to press a key to sort by info, after which streamwriter will write that list to text file
         {
-            Console.WriteLine("Welcome to the Library!!!");
+            Console.Write("Welcome to the Library!!! ");
             Library library1 = new Library();
             library1.ReadIO();
             //library1.DisplayBooksAllInformation(library1.books);
