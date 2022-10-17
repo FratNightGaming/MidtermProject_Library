@@ -11,33 +11,34 @@ namespace Midterm_Project
 {
     public class Library
     {
-        public List<Book> books { get; set; } = new List<Book>();
-        public List<Book> booksCheckedOut { get; set; } = new List<Book>();
+        public List<Book> books { get; set; } = new List<Book>(); // THIS WILL BE BACKUP
+		public List<Book> booksFromFile { get; set; } = new List<Book>(); // THIS WILL BE BOOKS
+		public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
         public static Book? CurrentBook { get; set; }
-
-        public List<Book>? CurrentBookList { get; set; }
+        public DateTime current = DateTime.Now;
+        public static List<Book>? CurrentBookList { get; set; }
 
 
 		public Library()//if else check to see if streamwriter file exists
         {
-            books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.Fantasy, Book.Status.Checked_Out));
-            books.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.Science_Fiction, Book.Status.Available));
-            books.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.Fantasy, Book.Status.Checked_Out));
-            books.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.Fantasy, Book.Status.Checked_Out));
-            books.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.Fantasy, Book.Status.Available));
-            books.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.Nonfiction, Book.Status.Available));
-            books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.History, Book.Status.Available));
+            books.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.Fantasy, Book.Status.Checked_Out, current));
+            books.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.Science_Fiction, Book.Status.Available, current));
+            books.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.Fantasy, Book.Status.Checked_Out , current));
+            books.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.Fantasy, Book.Status.Checked_Out, current));
+            books.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.Fantasy, Book.Status.Available, current));
+            books.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.Nonfiction, Book.Status.Available, current));
+            books.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.Nonfiction, Book.Status.Available, current));
+            books.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.Nonfiction, Book.Status.Available, current));
+            books.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.Nonfiction, Book.Status.Available, current));
+            books.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.History, Book.Status.Available, current));
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
@@ -272,12 +273,6 @@ namespace Midterm_Project
                 $"\tStatus: {book.status}\n");*/
         }
 
-        public static void CheckOutBook(Book book)
-        {
-            Console.WriteLine($"Thank you for checking out {book.Title}");
-        }
-
-
 		public static bool AskToCheckOut()
 		{
 			string choice = GetUserInput("Would you like to check out any of these books out? Y/N").ToUpper().Trim();
@@ -300,7 +295,7 @@ namespace Midterm_Project
             }
         }
 
-        public static void CheckOut(List<Book> orderedBookList)
+        public void CheckOut(List<Book> orderedBookList)
         {
 			if (AskToCheckOut())
 			{
@@ -318,23 +313,53 @@ namespace Midterm_Project
 
 				else if (CurrentBook.status == Book.Status.Available)
 				{
+
 					// get date
 					DateTime current = DateTime.Today;
 					DateTime dueDate = current.AddDays(14);
                     //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
-					CurrentBook.DueDate = dueDate;
-					CurrentBook.status = Status.Checked_Out;
+					books.Where(b => b.Title == CurrentBook.Title).First().DueDate = dueDate;
+					books.Where(b => b.Title == CurrentBook.Title).First().status = Status.Checked_Out;
 					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
 					Console.WriteLine($"{CurrentBook.Title} will be due back on {formattedDate}");
 					Console.WriteLine("Thank You!\n");
 				}
 			}
+
+            WriteIO(books);
+
 		}
-        public static void ReturnBook(Book book)
+        public void ReturnBook()
         {
-            book.status = Status.Available;
-            Console.WriteLine($"{book.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
-        }
+
+			List<Book> checkedOut = new List<Book>();
+            Book toReturn = null;
+			int index = 0;
+			foreach (Book book in books)
+			{
+				if (book.status == Book.Status.Checked_Out)
+				{
+					index++;
+					checkedOut.Add(book);
+					Console.WriteLine(index + " " + Library.DisplayIndividualBookInformation(book));
+				}
+			}
+			if (checkedOut.Count > 0)
+			{
+				//print list of books with status checked out
+				int toParse = Library.GetUserInt("what book are you returning?") - 1;
+
+				// listofbookscheckedout
+				toReturn = checkedOut.Where(b => b.Title == checkedOut[toParse].Title).First();
+				toReturn.status = Status.Available;
+				Console.WriteLine($"{toReturn.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
+			}
+			else
+			{
+				Console.WriteLine("theres no books checked out!");
+			}
+			WriteIO(books);
+		}
         public static string GetUserInput(string message)//implement a throw into catch for input == null
         {
             string input = String.Empty;
@@ -385,26 +410,54 @@ namespace Midterm_Project
             return input;
         }
 
-        public void ReadAndWriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
+        public void WriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
 
         //ORRRR I dont ever need to readstream. Just use displayfunction.
         //ORRR just make this a writeIO file and save results after each sort. make sure upon initialization of program, booklist = whats in the write io file
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            File.OpenWrite(currentDirectory);//creates a file in user's current directory
-            Console.WriteLine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName);
-            StreamWriter sw = new StreamWriter(currentDirectory, false);
-            StreamReader sr = new StreamReader(currentDirectory);
+            StreamWriter sw;
+            StreamReader sr;
 
-            foreach (Book book in sortedBooks)//possibly Book book in categorized books
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+			string filePath = currentDirectory + @"\testlist4.txt";
+
+			sw = new StreamWriter(filePath, false);
+			Console.WriteLine("writing to: " + filePath);
+			foreach (Book book in sortedBooks)
+			{
+				sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
+			}
+			sw.Close();
+/*
+			if (!File.Exists(filePath))
             {
-                sw.WriteLine(DisplayIndividualBookInformation(book));
+				sw = new StreamWriter(filePath, false);
+				Console.WriteLine("writing to: " + filePath);
+				foreach (Book book in sortedBooks)
+				{
+					sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
+				}
+				sw.Close();
             }
+            else
+            {
+				sr = new StreamReader(filePath);
+				foreach (Book book in sortedBooks)
+				{
+				    string line = sr.ReadLine();
+                    string[] lineValues = line.Split();
+                    if (lineValues[0] == accessBook.Title)
+                    {
+                        sr.Close();
+                        
+                        sw = new StreamWriter(filePath, false);
+                        sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
+                        sw.Close();
+                        
+                    }
+				}
+			}*/
 
-            sw.Close();
-            Console.WriteLine(sr.ReadToEnd());
-            sr.Close();
-            
             //File.OpenWrite(filePath3);
             //function below will take in a list parameter; add logic AFTER checking a book or returning a book OR sorting books list
             //step 1: Create File for user (File.OpenWrite(path)) //how do i ensure user has a compatible filepath?
@@ -416,7 +469,50 @@ namespace Midterm_Project
             //step 7: cw(sr.readtoend());
             //step 8: sr.close();
         }
-    }
+        public void ReadIO()
+        {
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+			string filePath = currentDirectory + @"\testlist4.txt";
+            bool fileExist = false;
+            try
+            {
+                StreamReader srt = new StreamReader(filePath);
+                fileExist = true;
+                srt.Close();
+
+			} catch (FileNotFoundException)
+            {
+                WriteIO(books); // BOOKS WILL BE CHANGED TO BACKUP SO WE CAN WRITE OUR INTERNAL DATABASE TO THE FILE
+            }
+            if (fileExist)
+            {
+                double entries = 0;
+
+				using (StreamReader sr = new StreamReader(filePath))
+				{
+					while (sr.ReadLine() != null)
+					{
+						entries++;
+					}
+					Console.WriteLine("entries: " + entries);
+					for (int i = 0; i < entries; i++)
+					{
+                        string line = File.ReadLines(filePath).Skip(i - 1).Take(1).First();
+						string[] lineValues = line.Split(",");
+                        booksFromFile.Add(new Book(lineValues[0], lineValues[1], //title / author
+                            int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
+							(Genre) Enum.Parse(typeof(Genre), lineValues[4]), // parse enum genre
+                            (Status) Enum.Parse(typeof(Status), lineValues[5]), // parse status enum
+                            DateTime.Parse(lineValues[6]))); // parse datetime
+					}
+				}
+				
+				
+
+			}
+
+		}
+	}
 }
 
 /*Write a console program which allows a user to search a library catalog and check out books.

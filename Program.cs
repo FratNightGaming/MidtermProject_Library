@@ -9,7 +9,7 @@ namespace Midterm_Project
         {
             Console.WriteLine("Welcome to the Library!!!");
             Library library1 = new Library();
-
+            library1.ReadIO();
             //library1.DisplayBooksAllInformation(library1.books);
 
 
@@ -74,8 +74,9 @@ namespace Midterm_Project
 
                 else if (input == "3" || input == "checkin")
                 {
-                    // checkin method for later
-                }
+                    library1.ReturnBook();
+
+				}
             }
         }
     }
