@@ -77,7 +77,11 @@ namespace Midterm_Project
                     library1.ReturnBook();
 
 				}
-            }
+				else if (input == "burn")
+				{
+                    library1.Burn();
+				}
+			}
         }
     }
 }

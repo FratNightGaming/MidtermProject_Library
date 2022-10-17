@@ -11,8 +11,8 @@ namespace Midterm_Project
 {
     public class Library
     {
-        public List<Book> books { get; set; } = new List<Book>(); // THIS WILL BE BACKUP
-		public List<Book> booksFromFile { get; set; } = new List<Book>(); // THIS WILL BE BOOKS
+        public List<Book> books { get; set; } = new List<Book>(); 
+		public List<Book> booksFromFile { get; set; } = new List<Book>(); 
 		public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
         public static Book? CurrentBook { get; set; }
@@ -416,7 +416,6 @@ namespace Midterm_Project
         //ORRR just make this a writeIO file and save results after each sort. make sure upon initialization of program, booklist = whats in the write io file
         {
             StreamWriter sw;
-            StreamReader sr;
 
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 			string filePath = currentDirectory + @"\testlist4.txt";
@@ -428,47 +427,8 @@ namespace Midterm_Project
 				sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
 			}
 			sw.Close();
-/*
-			if (!File.Exists(filePath))
-            {
-				sw = new StreamWriter(filePath, false);
-				Console.WriteLine("writing to: " + filePath);
-				foreach (Book book in sortedBooks)
-				{
-					sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
-				}
-				sw.Close();
-            }
-            else
-            {
-				sr = new StreamReader(filePath);
-				foreach (Book book in sortedBooks)
-				{
-				    string line = sr.ReadLine();
-                    string[] lineValues = line.Split();
-                    if (lineValues[0] == accessBook.Title)
-                    {
-                        sr.Close();
-                        
-                        sw = new StreamWriter(filePath, false);
-                        sw.WriteLine($"{book.Title},{book.Author},{book.NumberOfPages},{book.YearOfPublication},{book.genre},{book.status},{book.DueDate}");
-                        sw.Close();
-                        
-                    }
-				}
-			}*/
-
-            //File.OpenWrite(filePath3);
-            //function below will take in a list parameter; add logic AFTER checking a book or returning a book OR sorting books list
-            //step 1: Create File for user (File.OpenWrite(path)) //how do i ensure user has a compatible filepath?
-            //step 2: streamWriter sw = new StreamWriter(path, false)
-            //step 3: streamReader sr = new StreamReader(path)
-            //step 4: for loop going through length of current list *Create prop called "CurrentList" and assign it after sorting books by category
-            //step 5: sw.writeline(list[i].name, list[i].author, list[i].status, etc.)
-            //step 6: sw.close
-            //step 7: cw(sr.readtoend());
-            //step 8: sr.close();
         }
+
         public void ReadIO()
         {
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -482,33 +442,39 @@ namespace Midterm_Project
 
 			} catch (FileNotFoundException)
             {
-                WriteIO(booksFromFile); // BOOKS WILL BE CHANGED TO BACKUP SO WE CAN WRITE OUR INTERNAL DATABASE TO THE FILE
+                WriteIO(booksFromFile);
             }
 			double entries = 0;
-			
-                
-
-				using (StreamReader sr = new StreamReader(filePath))
+			using (StreamReader sr = new StreamReader(filePath))
+			{
+				while (sr.ReadLine() != null)
 				{
-					while (sr.ReadLine() != null)
-					{
-						entries++;
-					}
-					Console.Write("we have " + entries+" books\n");
-					for (int i = 0; i < entries; i++)
-					{
-                        string line = File.ReadLines(filePath).Skip(i - 1).Take(1).First();
-						string[] lineValues = line.Split(",");
-                        books.Add(new Book(lineValues[0], lineValues[1], //title / author
-                            int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
-							(Genre) Enum.Parse(typeof(Genre), lineValues[4]), // parse enum genre
-                            (Status) Enum.Parse(typeof(Status), lineValues[5]), // parse status enum
-                            DateTime.Parse(lineValues[6]))); // parse datetime
-					}
+					entries++;
 				}
-			
-
+				Console.Write("we have " + entries+" books\n");
+				for (int i = 0; i < entries; i++)
+				{
+                    string line = File.ReadLines(filePath).Skip(i - 1).Take(1).First();
+				    string[] lineValues = line.Split(",");
+                    books.Add(new Book(lineValues[0], lineValues[1], //title / author
+                    int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
+					(Genre) Enum.Parse(typeof(Genre), lineValues[4]), // parse enum genre
+                    (Status) Enum.Parse(typeof(Status), lineValues[5]), // parse status enum
+                    DateTime.Parse(lineValues[6]))); // parse datetime
+					}
+                sr.Close();
+			}
 		}
+
+        /*public void Burn()
+        {
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+			string filePath = currentDirectory + @"\testlist4.txt";
+			StreamReader sr = new StreamReader(filePath);
+			File.Delete(filePath);
+			sr.Close();
+            Console.WriteLine("look at what you've done.");
+		}*/
 	}
 }
 
