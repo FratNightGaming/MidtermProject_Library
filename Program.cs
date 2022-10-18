@@ -23,61 +23,70 @@ namespace Midterm_Project
                 {
                     while (true)
                     {
-						string userInput2 = Library.GetUserInput("What would you like to sort by? (1)Title, (2)Author, (3)Page Length, (4)Status, (5)Genre, or (6)Year: ");
-						if (userInput2 == "1" || userInput2 == "title" || userInput2 == "t")
                         {
-                            List<Book> booksByTitle = library1.SortBooksByTitle(library1.books);
-                            Console.WriteLine();
-                            library1.CheckOut(booksByTitle);
-                            break;
-                            
+                            if (userInput2 == "1" || userInput2 == "title" || userInput2 == "t")
+                            {
+                                List<Book> booksByTitle = library1.SortBooksByTitle(library1.books);
+                                Console.WriteLine();
+                                library1.CheckOut(booksByTitle);
+                                break;
+                            }
+                            else if (userInput2 == "2" || userInput2 == "author" || userInput2 == "a")
+                            {
+                                List<Book> booksByAuthor = library1.SortBooksByAuthor(library1.books);
+                                Console.WriteLine();
+                                library1.CheckOut(booksByAuthor);
+                                break;
+                            }
+                            else if (userInput2 == "3" || userInput2 == "page" || userInput2 == "length" || userInput2 == "page length" || userInput2 == "pagelength" || userInput2 == "p" || userInput2 == "pl")
+                            {
+                                List<Book> booksByPageLength = library1.SortBooksByPages(library1.books);
+                                Console.WriteLine();
+                                library1.CheckOut(booksByPageLength);
+                                break;
+                            }
+                            else if (userInput2 == "4" || userInput2 == "status" || userInput2 == "s")
+                            {
+                                List<Book> booksByStatus = library1.SortBooksByStatus(library1.books);
+                                Console.WriteLine();
+                                library1.CheckOut(booksByStatus);
+                                break;
+                            }
+                            else if (userInput2 == "5" || userInput2 == "genre" || userInput2 == "g")
+                            {
+                                List<Book> booksByGenre = library1.SortBooksByGenre(library1.books);
+                                Console.WriteLine();
+                                library1.CheckOut(booksByGenre);
+                                break;
+                            }
+                            else if (userInput2 == "6" || userInput2 == "year" || userInput2 == "y")
+                            {
+                                List<Book> booksByYear = library1.SortBooksByYear(library1.books);
+                                Console.WriteLine();
+                                library1.CheckOut(booksByYear);
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Your input was not a valid number, please try again.");
+                                Console.WriteLine();
+                                break;
+                            }
                         }
-                        else if (userInput2 == "2" || userInput2 == "author" || userInput2 == "a")
+                        catch (FormatException e)
                         {
-                            List<Book> booksByAuthor = library1.SortBooksByAuthor(library1.books);
+                            Console.WriteLine($"That wasn't an index in our system! Please enter a valid number or keyword.");
                             Console.WriteLine();
-							library1.CheckOut(booksByAuthor);
-                            break;
-
-                        }
-                        else if (userInput2 == "3" || userInput2 == "page" || userInput2 == "length" || userInput2 == "page length" || userInput2 == "pagelength" || userInput2 == "p" || userInput2 == "pl")
-                        {
-                            List<Book> booksByPageLength = library1.SortBooksByPages(library1.books);
-                            Console.WriteLine();
-							library1.CheckOut(booksByPageLength);
-                            break;
-                        }
-                        else if (userInput2 == "4" || userInput2 == "status" || userInput2 == "s")
-                        {
-                            List<Book> booksByStatus = library1.SortBooksByStatus(library1.books);
-                            Console.WriteLine();
-							library1.CheckOut(booksByStatus);
-                            break;
-                        }
-                        else if (userInput2 == "5" || userInput2 == "genre" || userInput2 == "g")
-                        {
-                            List<Book> booksByGenre = library1.SortBooksByGenre(library1.books);
-                            Console.WriteLine();
-							library1.CheckOut(booksByGenre);
-                            break;
-                        }
-                        else if (userInput2 == "6" || userInput2 == "year" || userInput2 == "y")
-                        {
-                            List<Book> booksByYear = library1.SortBooksByYear(library1.books);
-                            Console.WriteLine();
-							library1.CheckOut(booksByYear);
-                            break;
-                        }
-                        else
-                        {
                             continue;
-                        }
-                    }  
+                        }            
+                    }
                 }
+
                 else if (input == "3" || input == "search" || input == "search book" || input == "search books" || input == "s")
                 {
                     while (true)
                     {
+
 						input = Library.GetUserInput("What would you like to search by: (1)Title, (2)Author, or (3)Genre");
 						if (input == "1" || input == "title")
                         {
@@ -106,13 +115,19 @@ namespace Midterm_Project
                 else if (input == "4" || input == "c" || input == "checkin" || input == "check-in" || input == "checkin books" || input == "search books")
                 {
                     library1.ReturnBook();
-
 				}
 				else if (input == "burn")
 				{
                     library1.Burn();
 				}
-			}
+                else
+                {
+                    Console.WriteLine($"Your input was not a valid number, please try again.");
+                    Console.WriteLine();
+                    continue;
+                }
+
+            }
         }
 
     }
