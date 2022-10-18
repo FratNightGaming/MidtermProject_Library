@@ -75,7 +75,6 @@ namespace Midterm_Project
                             }
                         }
                     }
-                }
 
                 else if (input == "3" || input == "search" || input == "search book" || input == "search books" || input == "s")
                 {
