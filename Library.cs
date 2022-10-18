@@ -9,7 +9,7 @@ using System.Runtime;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
-using static Midterm_Project.Book;//Ryan, is this how you access the "Genre" variable?
+using static Midterm_Project.Book;
 
 namespace Midterm_Project
 {
@@ -567,11 +567,11 @@ namespace Midterm_Project
             StreamReader sr = new StreamReader(filePath);
             if(File.Exists(filePath)) // checking if txt file exists first
             {
-                sr.Close(); // closes out sr, so it can be deleted
+                sr.Close(); // closes out sr, so the txt file can be deleted
                 File.Delete(filePath);
-                books = null; //making books list null so it cannot be read anymore.
+                books.Clear(); //clearing all entries to the book list
             }  
-            Console.WriteLine("Look at what you've done."); //Good job. You proud to set humanity back a few hundred years again? No futuristic steam engines for you.
+            Console.WriteLine("Look at what you've done.\n"); //Good job. No futuristic steam engines for you.
 		}
 
         public bool Repeat()
