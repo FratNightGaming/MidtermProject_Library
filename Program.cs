@@ -23,6 +23,7 @@ namespace Midterm_Project
                 {
                     while (true)
                     {
+			string userInput2 = Library.GetUserInput("What would you like to sort by? (1)Title, (2)Author, (3)Page Length, (4)Status, (5)Genre, or (6)Year: ");
                         {
                             if (userInput2 == "1" || userInput2 == "title" || userInput2 == "t")
                             {
@@ -73,12 +74,6 @@ namespace Midterm_Project
                                 break;
                             }
                         }
-                        catch (FormatException e)
-                        {
-                            Console.WriteLine($"That wasn't an index in our system! Please enter a valid number or keyword.");
-                            Console.WriteLine();
-                            continue;
-                        }            
                     }
                 }
 
