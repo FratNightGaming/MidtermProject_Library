@@ -68,16 +68,15 @@ namespace Midterm_Project
             
             for (int i = 0; i < books.Count; i++)
             {
-                Console.WriteLine("{0,-5} {1,-73} {2,-25} {3,-20} {4,-10} {5,-18} {6,0}",
-                    i + 1,
+                //spacing for each of the below values
+                Console.WriteLine("{0,-5} {1,-73} {2,-25} {3,-20} {4,-10} {5,-18} {6,0}", 
+                    i + 1, //number tracker for # of books listed
                     books[i].Title,
                     books[i].Author,
                     books[i].genre,
                     books[i].NumberOfPages,
                     books[i].YearOfPublication,
                     books[i].status); 
-
-                //Console.WriteLine(DisplayIndividualBookInformation(books[i]));
             }
             Console.WriteLine();
         }
@@ -90,8 +89,9 @@ namespace Midterm_Project
 			// checks to see if there are going to be results
 			int bookCount = 0;
 			List<Book> booksByAuthor = new List<Book>();
-			
-            if (books.Any(b => b.Author.ToLower() == author))
+
+            //if any books have an author name that matches the user input.
+            if (books.Any(b => b.Author.ToLower() == author))  
 			{
 				Console.WriteLine($"\n{author} found:");
 			}
@@ -127,7 +127,6 @@ namespace Midterm_Project
 			string title = GetUserInput("Which book are you looking for?");
 
 			// checks to see if there are going to be results
-            //lets just do if (books.count == 0). no need for variable
 			int bookCount = 0;
 
 			if (books.Any(b => b.Title.ToLower() == title))
@@ -152,8 +151,7 @@ namespace Midterm_Project
 			if (bookCount == 0)
             {
                 Console.WriteLine($"{title} not found.");
-            }
-            
+            }   
 			else
 			{
 				CheckOut(booksByTitle);
@@ -166,33 +164,34 @@ namespace Midterm_Project
             Genre genre = Book.Genre.biography;
             bool getGenre = true;
             int runCount = 0;
-			while (getGenre) {
+			while (getGenre) 
+            {
                 try
                 {
-			string choice = GetUserInput("Which genre would you like? or type genres for a list :)");
-			if (choice == "genres")
-                    	{
-				foreach (Genre type in Enum.GetValues(typeof(Genre)))
-				{
-					int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
-					runCount++;
-					if (runCount > genreCount)
-					{
-						Console.Write($"{type}.");
-						Console.WriteLine();
-					}
-					else
-					{
-						Console.Write($"{type}, ");
-					}
-					continue;
-				}
-                    	}
-                    	else
-                    	{
-				genre = (Genre)Enum.Parse(typeof(Genre), choice);
-				getGenre = false;
-		    	}
+			        string choice = GetUserInput("Which genre would you like? Or type genres for a list.");
+			        if (choice == "genres")
+                    	        {
+				        foreach (Genre type in Enum.GetValues(typeof(Genre)))
+				        {
+					        int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
+					        runCount++;
+					        if (runCount > genreCount)
+					        {
+						        Console.Write($"{type}.");
+						        Console.WriteLine();
+					        }
+					        else
+					        {
+						        Console.Write($"{type}, ");
+					        }
+					        continue;
+				        }
+                    }
+                    else
+                    {
+				        genre = (Genre)Enum.Parse(typeof(Genre), choice);
+				        getGenre = false;
+		    	    }
                 }
                 catch (ArgumentException)
                 {
@@ -332,7 +331,8 @@ namespace Midterm_Project
             }
             return booksByYear;
         }
-        public static string DisplayIndividualBookInformation(Book book)//do we want to add yearofpublication?
+
+        public static string DisplayIndividualBookInformation(Book book)
         {
             string bookInformation = ($"{null,-5} {book.Title,-73} {book.Author,-25} {book.genre,-20} {book.NumberOfPages,-10} {book.YearOfPublication, -18} {book.status, 0}");
             return bookInformation;
@@ -349,13 +349,14 @@ namespace Midterm_Project
 
             else if (choice == "N" || choice == "NO")
             {
-                Console.WriteLine("We hope you find another book you'd like!");
+                Console.WriteLine("We hope you find another book you'd like!\n");
+
                 return false;
             }
 
             else
             {
-                Console.WriteLine("Input not recognized. Please try again.");
+                Console.WriteLine("Input not recognized. Please try again.\n");
                 return AskToCheckOut();
             }
         }
@@ -364,7 +365,6 @@ namespace Midterm_Project
         {
 			if (AskToCheckOut())
 			{
-				
 				while (true)
 				{
 					try
@@ -373,8 +373,8 @@ namespace Midterm_Project
 						CurrentBook = orderedBookList[userInput - 1];
 						if (!(userInput > 0 && userInput <= orderedBookList.Count))
 						{
-							Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{orderedBookList.Count}.");
-							Console.WriteLine();
+							Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{orderedBookList.Count}.\n");
+
 							continue;
 						}
                         else
@@ -384,28 +384,26 @@ namespace Midterm_Project
 					}
 					catch (Exception)
 					{
-						Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{orderedBookList.Count}.");
-						Console.WriteLine();
+						Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{orderedBookList.Count}.\n");
 						continue;
 					}
 				}
+
 				if (CurrentBook.status == Book.Status.checked_out)
 				{
-					Console.WriteLine("This book is checked out! Please be more careful");//display when due date is
+					Console.WriteLine("This book is checked out! Please wait until it is returned.\n");
 				}
-
 				else if (CurrentBook.status == Book.Status.hold)
 				{
-					Console.WriteLine("This book is on hold! Please be more careful");//display when hold ends
+					Console.WriteLine("This book is on hold! Thank you for being patient until it becomes available.\n");
 				}
-
 				else if (CurrentBook.status == Book.Status.available)
 				{
 
-					// get date
+					// get current date
 					DateTime current = DateTime.Today;
 					DateTime dueDate = current.AddDays(14);
-                    //DateTime current = DateTime.Today.AddDays(14);//testing code here. it is more concise than having two lines 
+                    //DateTime current = DateTime.Today.AddDays(14);    //testing code here. it is more concise than having two lines 
 					books.Where(b => b.Title == CurrentBook.Title).First().DueDate = dueDate;
 					books.Where(b => b.Title == CurrentBook.Title).First().status = Status.checked_out;
 					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
@@ -413,13 +411,11 @@ namespace Midterm_Project
 					Console.WriteLine("Thank You!\n");
 				}
 			}
-
             WriteIO(books);
-
 		}
+
         public void ReturnBook()
         {
-
 			List<Book> checkedOut = new List<Book>();
             Book toReturn = null;
 			int index = 0;
@@ -445,7 +441,6 @@ namespace Midterm_Project
                         break;
                     }
 				}
-				// listofbookscheckedout
                 
 				toReturn = checkedOut.Where(b => b.Title == checkedOut[toParse].Title).First();
 				toReturn.status = Status.available;
@@ -457,6 +452,7 @@ namespace Midterm_Project
 			}
 			WriteIO(books);
 		}
+
         public static string GetUserInput(string message)//implement a throw into catch for input == null
         {
             string input = String.Empty;
@@ -481,6 +477,7 @@ namespace Midterm_Project
 
             return input;
         }
+
         public static int GetUserInt(string message)
         {
             int input = -1;
@@ -551,8 +548,8 @@ namespace Midterm_Project
 				Console.Write("we have " + entries+" books\n");
 				for (int i = 0; i < entries; i++)
 				{
-                    string line = File.ReadLines(filePath).Skip(i).Take(1).First();
-				    string[] lineValues = line.Split(",");
+                    string line = File.ReadLines(filePath).Skip(i).Take(1).First(); //reading each line representing a book and its info, taking the first only to prevent mixing different book info.
+				    string[] lineValues = line.Split(","); //splitting each book info string
                     books.Add(new Book(lineValues[0], lineValues[1], //title / author
                     int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
 					(Genre) Enum.Parse(typeof(Genre), lineValues[4]), // parse enum genre
@@ -562,21 +559,47 @@ namespace Midterm_Project
                 sr.Close();
 			}
 		}
+
         public void Burn()
         {
-			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-			string filePath = currentDirectory + @"\testlist4.txt";
-			StreamReader sr = new StreamReader(filePath);
-            if(File.Exists(filePath))
+			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;  //finding where the program directery is located on each individual machine.
+            string filePath = currentDirectory + @"\testlist4.txt"; //finding where the txt file is located on each individual machine.
+            StreamReader sr = new StreamReader(filePath);
+            if(File.Exists(filePath)) // checking if txt file exists first
             {
-                sr.Close();
+                sr.Close(); // closes out sr, so it can be deleted
                 File.Delete(filePath);
-                books = null;
+                books = null; //making books list null so it cannot be read anymore.
             }  
-            Console.WriteLine("Look at what you've done.");
+            Console.WriteLine("Look at what you've done."); //Good job. You proud to set humanity back a few hundred years again? No futuristic steam engines for you.
 		}
 
-	}
+        public bool Repeat()
+        {
+            Console.Write("Do you want to watch exit the library? Y/N: ");
+            while (true)
+            {
+                string input = Console.ReadLine().ToLower();
+                if (input == "y")
+                {
+                    Console.WriteLine("Goodbye!");
+                    Console.WriteLine();
+                    return true;
+                }
+                else if (input == "n")
+                {
+                    Console.WriteLine("Welcome back!");
+                    Console.WriteLine();
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine("Please only enter Y or N:");
+                }
+            }
+        }
+
+    }
 }
 
 /*Write a console program which allows a user to search a library catalog and check out books.
