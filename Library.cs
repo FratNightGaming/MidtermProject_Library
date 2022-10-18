@@ -195,7 +195,7 @@ namespace Midterm_Project
                 }
                 catch (ArgumentException)
                 {
-                    Console.WriteLine("thats not a valid genre! try again");
+                    Console.WriteLine("That's not a valid genre! Try again. ");
                 }
             }
 
