@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Midterm_Project
 {
-    public class Book//make class abstract IF we want different types of books
+    public class Book
     {
         public string Title { get; set; }
         public string Author { get; set; }
@@ -46,6 +46,7 @@ namespace Midterm_Project
             this.status = status;
             this.DueDate = DueDate;
         }
+
     }
 }
 

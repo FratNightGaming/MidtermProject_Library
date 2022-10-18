@@ -9,12 +9,11 @@ namespace Midterm_Project
             Console.Write("Welcome to the Library!!! ");
             Library library1 = new Library();
             library1.ReadIO();
-			// always loop to keep asking user what they want to do
-			bool start = true;
-			while (start)
+            // always loop to keep asking user what they want to do
+            bool start = true;
+            while (start = true)
             {
-                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, or (5)Donate a book:  ");
-
+                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, (5)Donate a book, or (6) Exit: ");
                 if (input == "1" || input == "display" || input == "display book" || input == "display books" || input == "d" || input == "db")
                 {
                     Library.DisplayBooksAllInformation(library1.books);
@@ -24,8 +23,7 @@ namespace Midterm_Project
                 {
                     while (true)
                     {
-			            string userInput2 = Library.GetUserInput("What would you like to sort by? (1)Title, (2)Author, (3)Page Length, (4)Status, (5)Genre, or (6)Year: ");
-                        {
+			                string userInput2 = Library.GetUserInput("What would you like to sort by? (1)Title, (2)Author, (3)Page Length, (4)Status, (5)Genre, or (6)Year: ");
                             if (userInput2 == "1" || userInput2 == "title" || userInput2 == "t")
                             {
                                 List<Book> booksByTitle = library1.SortBooksByTitle(library1.books);
@@ -40,7 +38,8 @@ namespace Midterm_Project
                                 library1.CheckOut(booksByAuthor);
                                 break;
                             }
-                            else if (userInput2 == "3" || userInput2 == "page" || userInput2 == "length" || userInput2 == "page length" || userInput2 == "pagelength" || userInput2 == "p" || userInput2 == "pl")
+                            else if (userInput2 == "3" || userInput2 == "page" || userInput2 == "length" 
+                                  || userInput2 == "page length" || userInput2 == "pagelength" || userInput2 == "p" || userInput2 == "pl")
                             {
                                 List<Book> booksByPageLength = library1.SortBooksByPages(library1.books);
                                 Console.WriteLine();
@@ -137,7 +136,6 @@ namespace Midterm_Project
                     Console.WriteLine();
                     continue;
                 }
-
             }
         }
 
