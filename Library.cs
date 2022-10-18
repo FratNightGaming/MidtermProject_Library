@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Runtime;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
@@ -42,7 +43,7 @@ namespace Midterm_Project
             booksFromFile.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available, current));
             booksFromFile.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available, current));
 			booksFromFile.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available, current));
-      booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
+            booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
@@ -144,21 +145,34 @@ namespace Midterm_Project
             // gets what the user wants to find
             Genre genre = Book.Genre.biography;
             bool getGenre = true;
-            while(getGenre) {
+            int runCount = 0;
+			while (getGenre) {
                 try
                 {
-                    genre = (Genre)Enum.Parse(typeof(Genre), GetUserInput("Which genre would you like? or type genres for a list :)"));
-					/*if (choice == "genre")
-					{
-
-						foreach (Genre genre in Enum.GetValues(typeof(Genre)))
-						{
-							Console.Write($"{genre}, ");
-						}
-
-						return AskToCheckOut();
-					}*/
-					getGenre = false;
+					string choice = GetUserInput("Which genre would you like? or type genres for a list :)");
+					if (choice == "genres")
+                    {
+                        foreach (Genre type in Enum.GetValues(typeof(Genre)))
+                        {
+							int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
+                            runCount++;
+                            if (runCount > genreCount)
+                            {
+								Console.Write($"{type}.");
+                                Console.WriteLine();
+							}
+                            else
+                            {
+                                Console.Write($"{type}, ");
+                            }
+                            continue;
+                        }
+                    }
+                    else
+                    {
+						genre = (Genre)Enum.Parse(typeof(Genre), choice);
+						getGenre = false;
+					}
                 }
                 catch (ArgumentException)
                 {
@@ -313,8 +327,31 @@ namespace Midterm_Project
         {
 			if (AskToCheckOut())
 			{
-				CurrentBook = orderedBookList[GetUserInt("Please enter the index of the book you'd like:") - 1];
-
+				
+				while (true)
+				{
+					try
+					{
+                        int userInput = GetUserInt("Please enter the index of the book you'd like [1-" + orderedBookList.Count + "]:");
+						CurrentBook = orderedBookList[userInput - 1];
+						if (!(userInput > 0 && userInput <= orderedBookList.Count))
+						{
+							Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{orderedBookList.Count}.");
+							Console.WriteLine();
+							continue;
+						}
+                        else
+                        {
+							break;
+						}
+					}
+					catch (Exception)
+					{
+						Console.WriteLine($"That wasn't an index in our system! Please enter a number between 1-{orderedBookList.Count}.");
+						Console.WriteLine();
+						continue;
+					}
+				}
 				if (CurrentBook.status == Book.Status.checked_out)
 				{
 					Console.WriteLine("This book is checked out! please be more careful");//display when due date is
@@ -477,7 +514,7 @@ namespace Midterm_Project
 				Console.Write("we have " + entries+" books\n");
 				for (int i = 0; i < entries; i++)
 				{
-                    string line = File.ReadLines(filePath).Skip(i - 1).Take(1).First();
+                    string line = File.ReadLines(filePath).Skip(i).Take(1).First();
 				    string[] lineValues = line.Split(",");
                     books.Add(new Book(lineValues[0], lineValues[1], //title / author
                     int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
