@@ -9,7 +9,7 @@ using System.Runtime;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
-using static Midterm_Project.Book;//Ryan, is this how you access the "Genre" variable?
+using static Midterm_Project.Book;
 
 namespace Midterm_Project
 {
