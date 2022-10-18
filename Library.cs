@@ -153,13 +153,13 @@ namespace Midterm_Project
 			// checks to see if there are going to be results
 			int bookCount = 0;
 
-			if (books.Any(b => b.Title.Contains(title)))
+			if (books.Any(b => b.Title.ToLower().Contains(title)))
 			{
 				Console.WriteLine($"{title} found:\n");
 			}
 
 			// brings all books found into a list and then prints them
-			List<Book> booksByTitle = books.Where(b => b.Title.Contains(title)).ToList();
+			List<Book> booksByTitle = books.Where(b => b.Title.ToLower().Contains(title)).ToList();
 
             Console.Write("{0,-5} {1,-73} {2,-25} {3,-20} {4,-10} {5,-18} {6,0}  \n",
                            "Index", "Title", "Author", "Genre", "Pages", "Year Published", "Status");
