@@ -26,36 +26,36 @@ namespace Midterm_Project
 
 	public Library()//if else check to see if streamwriter file exists
         {
-	booksFromFile.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.fantasy, Book.Status.checked_out, current));
-	booksFromFile.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.science_fiction, Book.Status.available, current));
-	booksFromFile.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.fantasy, Book.Status.checked_out , current));
-	booksFromFile.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.fantasy, Book.Status.checked_out, current));
-	booksFromFile.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.fantasy, Book.Status.available, current));
-	booksFromFile.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.nonfiction, Book.Status.available, current));
-	booksFromFile.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.nonfiction, Book.Status.available, current));
-	booksFromFile.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available, current));
-	booksFromFile.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available, current));
-	booksFromFile.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available, current));
-	booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
-	booksFromFile.Add(new Book("Calvin and Hobbs", "Bill Watterson", 3160, 1985, Book.Genre.graphic_novel, Book.Status.checked_out, current));
-	booksFromFile.Add(new Book("Peanuts", "Charles M. Schulz", 17897, 1950, Book.Genre.graphic_novel, Book.Status.available, current));
-	booksFromFile.Add(new Book("The Martian", "Andy Weir", 369, 2011, Book.Genre.science_fiction, Book.Status.available, current));
-	booksFromFile.Add(new Book("The Stormlight Archive - Book 1: The Way of Kings", "Brandon Sanderson", 1007, 2010, Book.Genre.fantasy, Book.Status.checked_out, current));
-	booksFromFile.Add(new Book("Salt: A World History", "Mark Kurlansky", 496, 2002, Book.Genre.history, Book.Status.checked_out, current));
-	booksFromFile.Add(new Book("Nonviolence: The History of a Dangerous Idea", "Mark Kurlansky", 244, 2006, Book.Genre.history, Book.Status.available, current));
-	booksFromFile.Add(new Book("SPQR: A History of Ancient Rome", "Mary Beard", 606, 2015, Book.Genre.history, Book.Status.available, current));
-	booksFromFile.Add(new Book("Romeo and Juliet", "Willian Shakespeare", 148, 1597, Book.Genre.romance, Book.Status.available, current));
-	booksFromFile.Add(new Book("Sherlock Holmes: A Study in Scarlet", "Sir Arthur Conan Doyle", 230, 1887, Book.Genre.mystery, Book.Status.checked_out, current));   
-	booksFromFile.Add(new Book("The Story of the Streets", "Mike Skinner", 304, 2012, Book.Genre.biography, Book.Status.available, current));
-	booksFromFile.Add(new Book("The King in Yellow", "Robert W. Chambers", 316, 1895, Book.Genre.horror, Book.Status.available, current));
-	booksFromFile.Add(new Book("Dune", "Frank Herbert", 412, 1965, Book.Genre.science_fiction, Book.Status.checked_out, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 251, 1998, Book.Genre.fantasy, Book.Status.checked_out, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 371, 1999, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Goblet of Fire", "J.K. Rowling", 636, 2000, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Order of the Phoenix", "J.K. Rowling", 766, 2003, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Half-Blood Prince", "J.K. Rowling", 607, 2005, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Harry Potter and the Deathly Hallows", "J.K. Rowling", 607, 2007, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The Three-Body Problem", "Liu Cixin", 302, 2008, Book.Genre.science_fiction, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The Silmarillion", "J.R.R. Tolkien", 365, 1977, Book.Genre.fantasy, Book.Status.checked_out , current));
+	    booksFromFile.Add(new Book("The Lord of The Rings: The Fellowship of the Ring", "J.R.R. Tolkien", 423, 1954, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The Lord of The Rings: The Two Towers", "J.R.R. Tolkien", 352, 1954, Book.Genre.fantasy, Book.Status.checked_out, current));
+	    booksFromFile.Add(new Book("The Lord of The Rings: The Return of the King", "J.R.R. Tolkien", 416, 1955, Book.Genre.fantasy, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Simulacra and Simulation", "Jean Baudrillard", 164, 1981, Book.Genre.nonfiction, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Countdown to Zero Day", "Kim Zetter", 406, 2014, Book.Genre.nonfiction, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The Sixth Extinction: An Unnatural History", "Elizabeth Kolbert", 316, 2014, Book.Genre.nonfiction, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Into Thin Air: A personal Account of the Mt. Everest Disaster", "John Krakauer", 416, 1997, Book.Genre.nonfiction, Book.Status.available, current));
+	    booksFromFile.Add(new Book("In the Heart of the Sea: The Tragedy of the Whaleship Essex", "Nathaniel Philbrick", 320, 2000, Book.Genre.history, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Red Dragon", "Thomas Harris", 348, 1981, Book.Genre.horror, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Calvin and Hobbs", "Bill Watterson", 3160, 1985, Book.Genre.graphic_novel, Book.Status.checked_out, current));
+	    booksFromFile.Add(new Book("Peanuts", "Charles M. Schulz", 17897, 1950, Book.Genre.graphic_novel, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The Martian", "Andy Weir", 369, 2011, Book.Genre.science_fiction, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The Stormlight Archive - Book 1: The Way of Kings", "Brandon Sanderson", 1007, 2010, Book.Genre.fantasy, Book.Status.checked_out, current));
+	    booksFromFile.Add(new Book("Salt: A World History", "Mark Kurlansky", 496, 2002, Book.Genre.history, Book.Status.checked_out, current));
+	    booksFromFile.Add(new Book("Nonviolence: The History of a Dangerous Idea", "Mark Kurlansky", 244, 2006, Book.Genre.history, Book.Status.available, current));
+	    booksFromFile.Add(new Book("SPQR: A History of Ancient Rome", "Mary Beard", 606, 2015, Book.Genre.history, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Romeo and Juliet", "Willian Shakespeare", 148, 1597, Book.Genre.romance, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Sherlock Holmes: A Study in Scarlet", "Sir Arthur Conan Doyle", 230, 1887, Book.Genre.mystery, Book.Status.checked_out, current));   
+	    booksFromFile.Add(new Book("The Story of the Streets", "Mike Skinner", 304, 2012, Book.Genre.biography, Book.Status.available, current));
+	    booksFromFile.Add(new Book("The King in Yellow", "Robert W. Chambers", 316, 1895, Book.Genre.horror, Book.Status.available, current));
+	    booksFromFile.Add(new Book("Dune", "Frank Herbert", 412, 1965, Book.Genre.science_fiction, Book.Status.checked_out, current));
         }
 
         public static void DisplayBooksAllInformation(List<Book> books)
@@ -570,8 +570,12 @@ namespace Midterm_Project
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 			string filePath = currentDirectory + @"\testlist4.txt";
 			StreamReader sr = new StreamReader(filePath);
-			File.Delete(filePath);
-			sr.Close();
+            if(File.Exists(filePath))
+            {
+                sr.Close();
+                File.Delete(filePath);
+                books = null;
+            }  
             Console.WriteLine("look at what you've done.");
 		}
 
