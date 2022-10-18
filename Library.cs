@@ -23,7 +23,6 @@ namespace Midterm_Project
         public DateTime current = DateTime.Now;
         public static List<Book>? CurrentBookList { get; set; }
 
-
 	public Library()//if else check to see if streamwriter file exists
         {
 	    booksFromFile.Add(new Book("Harry Potter and the Philosopher's Stone", "J.K. Rowling", 223, 1997, Book.Genre.fantasy, Book.Status.available, current));
