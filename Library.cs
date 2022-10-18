@@ -235,15 +235,16 @@ namespace Midterm_Project
 				try
 				{
 					string choice = GetUserInput("Which genre would you like? or type genres for a list :)");
-					if (choice == "genres")
+					if (choice == "genres" || choice == "genre" || choice == "g" || choice == "list")
 					{
+                        Console.WriteLine();
 						foreach (Genre type in Enum.GetValues(typeof(Genre)))
 						{
 							int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
 							runCount++;
 							if (runCount > genreCount)
 							{
-								Console.Write($"{type}.");
+								Console.Write($"{type}. \n");
 								Console.WriteLine();
 							}
 							else
@@ -450,6 +451,10 @@ namespace Midterm_Project
             Book toReturn = null;
 			int index = 0;
 			//print list of books with status checked out
+			Console.Write("{0,-5} {1,-73} {2,-25} {3,-20} {4,-10} {5,-18} {6,0}  \n",
+						   "Index", "Title", "Author", "Genre", "Pages", "Year Published", "Status");
+			Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
 			foreach (Book book in books)
 			{
 				if (book.status == Book.Status.checked_out)
@@ -466,7 +471,7 @@ namespace Midterm_Project
 				int toParse = Library.GetUserInt("What book are you returning?") - 1;
                 while (toParse+1 > index || toParse < 0)
                 {
-                    Console.WriteLine("that isnt an index!");
+                    Console.WriteLine("That isn't an index!");
 					toParse = Library.GetUserInt("What book are you returning?") - 1;
                     if (!(toParse + 1 > index || toParse < 0))
                     {
