@@ -12,7 +12,6 @@ namespace Midterm_Project
             library1.ReadIO();
             //library1.DisplayBooksAllInformation(library1.books);
 
-
             // always loop to keep asking user what they want to do
             while (true)
             {
