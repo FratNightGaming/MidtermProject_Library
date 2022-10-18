@@ -13,8 +13,7 @@ namespace Midterm_Project
             bool start = true;
             while (start = true)
             {
-                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, or (6) Exit: ");
-
+                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, (5)Donate a book, or (6) Exit: ");
                 if (input == "1" || input == "display" || input == "display book" || input == "display books" || input == "d" || input == "db")
                 {
                     Library.DisplayBooksAllInformation(library1.books);
@@ -74,6 +73,7 @@ namespace Midterm_Project
                                 Console.WriteLine();
                                 break;
                             }
+                        }
                     }
                 }
 
@@ -111,22 +111,26 @@ namespace Midterm_Project
                 {
                     library1.ReturnBook();
 				}
-                else if (input == "6" || input == "exit" || input == "e" || input == "esc")
-                {
-                    if (start == library1.Repeat())
-                    { 
-                        break; 
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
 				else if (input == "burn")
 				{
                     library1.Burn();
 				}
-                else
+                else if (input == "5" || input == "donate" || input == "add")
+                {
+                    library1.AddBook();
+				}
+				else if (input == "6" || input == "exit" || input == "e" || input == "esc")
+				{
+					if (start == library1.Repeat())
+					{
+						break;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
                 {
                     Console.WriteLine($"Your input was not a valid number, please try again.");
                     Console.WriteLine();

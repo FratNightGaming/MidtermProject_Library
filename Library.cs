@@ -17,9 +17,11 @@ namespace Midterm_Project
     {
         public List<Book> books { get; set; } = new List<Book>(); 
 		public List<Book> booksFromFile { get; set; } = new List<Book>(); 
+        // this is used to remake the database
 		public List<Book> booksCheckedOut { get; set; } = new List<Book>();
         public List<Book> booksAvailable { get; set; } = new List<Book>();
         public static Book? CurrentBook { get; set; }
+
         public DateTime current = DateTime.Now;
         public static List<Book>? CurrentBookList { get; set; }
 
@@ -89,23 +91,22 @@ namespace Midterm_Project
 			// checks to see if there are going to be results
 			int bookCount = 0;
 			List<Book> booksByAuthor = new List<Book>();
-
+            if (books.Any(b => b.Author.ToLower().Contains(author)))
             //if any books have an author name that matches the user input.
-            if (books.Any(b => b.Author.ToLower() == author))  
 			{
-				Console.WriteLine($"\n{author} found:");
+				Console.WriteLine($"{author} found:\n");
 			}
-
 			// brings all books found into a list and then prints them
-			booksByAuthor = books.Where(b => b.Author.ToLower() == author).ToList();
+			booksByAuthor = books.Where(b => b.Author.ToLower().Contains(author)).ToList();
 
             Console.Write("{0,-5} {1,-73} {2,-25} {3,-20} {4,-10} {5,-18} {6,0}  \n",
                            "Index", "Title", "Author", "Genre", "Pages", "Year Published", "Status");
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
+            int index = 1;
             foreach (Book book in booksByAuthor)
 			{
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
 				bookCount++;
 			}
 
@@ -114,7 +115,6 @@ namespace Midterm_Project
             {
                 Console.WriteLine("Author not found.");
             }
-
             else
             {
                 CheckOut(booksByAuthor);
@@ -123,27 +123,52 @@ namespace Midterm_Project
 
         public void SearchBookByTitle(List<Book> books)
         {
-			// gets what the user wants to find
-			string title = GetUserInput("Which book are you looking for?");
+            // gets what the user wants to find
+            Console.WriteLine("Which book are you looking for?");
+			string title = String.Empty;
+            bool noTitle = true;
+			while (noTitle)
+            {
+                try
+                {
+                    title = Console.ReadLine();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                    title = Console.ReadLine();
+                }
 
+                if (title == String.Empty)
+                {
+                    Console.WriteLine("No input was detected. Please try again.");
+                    title = Console.ReadLine();
+                }
+                else
+                {
+					noTitle = false;
+				}
+				
+			}
 			// checks to see if there are going to be results
 			int bookCount = 0;
 
-			if (books.Any(b => b.Title.ToLower() == title))
+			if (books.Any(b => b.Title.Contains(title)))
 			{
-				Console.WriteLine($"\n{title} found:");
+				Console.WriteLine($"{title} found:\n");
 			}
 
 			// brings all books found into a list and then prints them
-			List<Book> booksByTitle = books.Where(b => b.Title.ToLower() == title).ToList();
+			List<Book> booksByTitle = books.Where(b => b.Title.Contains(title)).ToList();
 
             Console.Write("{0,-5} {1,-73} {2,-25} {3,-20} {4,-10} {5,-18} {6,0}  \n",
                            "Index", "Title", "Author", "Genre", "Pages", "Year Published", "Status");
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
-            foreach (Book book in booksByTitle)
+			int index = 1;
+			foreach (Book book in booksByTitle)
 			{
-                Console.WriteLine(DisplayIndividualBookInformation(book));
+                Console.WriteLine(index + DisplayIndividualBookInformation(book));
+                index++;
 				bookCount++;
 			}
 
@@ -162,50 +187,15 @@ namespace Midterm_Project
         {
             // gets what the user wants to find
             Genre genre = Book.Genre.biography;
-            bool getGenre = true;
-            int runCount = 0;
-			while (getGenre) 
-            {
-                try
-                {
-			        string choice = GetUserInput("Which genre would you like? Or type genres for a list.");
-			        if (choice == "genres")
-                    	        {
-				        foreach (Genre type in Enum.GetValues(typeof(Genre)))
-				        {
-					        int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
-					        runCount++;
-					        if (runCount > genreCount)
-					        {
-						        Console.Write($"{type}.");
-						        Console.WriteLine();
-					        }
-					        else
-					        {
-						        Console.Write($"{type}, ");
-					        }
-					        continue;
-				        }
-                    }
-                    else
-                    {
-				        genre = (Genre)Enum.Parse(typeof(Genre), choice);
-				        getGenre = false;
-		    	    }
-                }
-                catch (ArgumentException)
-                {
-                    Console.WriteLine("That's not a valid genre! Try again. ");
-                }
-            }
-
+            genre = getValidGenre();
+            
 			// checks to see if there are going to be results
 			int bookCount = 0;
 			List<Book> booksByGenre = new List<Book>();
 			
             if (books.Any(b => b.genre.ToString().ToLower() == genre.ToString()))
             {
-              Console.WriteLine($"\n{genre} found:");
+              Console.WriteLine($"{genre} found:\n");
             }
 
             // brings all books found into a list and then prints them
@@ -224,22 +214,59 @@ namespace Midterm_Project
             }
             Console.WriteLine();
 
-			if (bookCount == 0)
-			{
-				Console.WriteLine($"{genre} not found.");
-			}
-
 			// saying if theres no books or asks to checkout a book
 			if (bookCount == 0)
             {
                 Console.WriteLine($"{genre} not found.");
             }
-
             else 
             {
                 CheckOut(booksByGenre);
 			}
-		}  
+
+		}
+        public Genre getValidGenre()
+        {
+			Genre genre = Book.Genre.biography;
+			bool getGenre = true;
+			int runCount = 0;
+			while (getGenre)
+			{
+				try
+				{
+					string choice = GetUserInput("Which genre would you like? or type genres for a list :)");
+					if (choice == "genres")
+					{
+						foreach (Genre type in Enum.GetValues(typeof(Genre)))
+						{
+							int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
+							runCount++;
+							if (runCount > genreCount)
+							{
+								Console.Write($"{type}.");
+								Console.WriteLine();
+							}
+							else
+							{
+								Console.Write($"{type}, ");
+							}
+							continue;
+						}
+					}
+					else
+					{
+						genre = (Genre)Enum.Parse(typeof(Genre), choice);
+						getGenre = false;
+					}
+				}
+				catch (ArgumentException)
+				{
+					Console.WriteLine("thats not a valid genre! try again");
+				}
+			}
+            return genre;
+		}
+        
 
         public List<Book> SortBooksByTitle(List<Book> books)
         {
@@ -334,6 +361,7 @@ namespace Midterm_Project
 
         public static string DisplayIndividualBookInformation(Book book)
         {
+            // null is space to insert index if needed
             string bookInformation = ($"{null,-5} {book.Title,-73} {book.Author,-25} {book.genre,-20} {book.NumberOfPages,-10} {book.YearOfPublication, -18} {book.status, 0}");
             return bookInformation;
         }
@@ -341,7 +369,7 @@ namespace Midterm_Project
 		public static bool AskToCheckOut()
 		{
 			string choice = GetUserInput("Would you like to check out any of these books out? Y/N").ToUpper().Trim();
-			
+			// breaking some logic out to this method from the next one, CheckOut
 			if (choice == "Y" || choice == "YES")
             {
                 return true;
@@ -365,6 +393,7 @@ namespace Midterm_Project
         {
 			if (AskToCheckOut())
 			{
+        // while loop just makes sure your selection is valid within the list provided
 				while (true)
 				{
 					try
@@ -374,7 +403,6 @@ namespace Midterm_Project
 						if (!(userInput > 0 && userInput <= orderedBookList.Count))
 						{
 							Console.WriteLine($"Your input was not a valid number, please try again. Enter a number between 1-{orderedBookList.Count}.\n");
-
 							continue;
 						}
                         else
@@ -400,10 +428,11 @@ namespace Midterm_Project
 				else if (CurrentBook.status == Book.Status.available)
 				{
 
-					// get current date
+					// get date and modifies it for checkin due date
 					DateTime current = DateTime.Today;
 					DateTime dueDate = current.AddDays(14);
-                    //DateTime current = DateTime.Today.AddDays(14);    //testing code here. it is more concise than having two lines 
+          //DateTime current = DateTime.Today.AddDays(14);    //testing code here. it is more concise than having two lines 
+          // sets the book's values
 					books.Where(b => b.Title == CurrentBook.Title).First().DueDate = dueDate;
 					books.Where(b => b.Title == CurrentBook.Title).First().status = Status.checked_out;
 					string formattedDate = CurrentBook.DueDate.ToString("MMMM/d/yyyy");
@@ -411,6 +440,7 @@ namespace Midterm_Project
 					Console.WriteLine("Thank You!\n");
 				}
 			}
+            // since we've modified our database, write our change to the file
             WriteIO(books);
 		}
 
@@ -419,6 +449,7 @@ namespace Midterm_Project
 			List<Book> checkedOut = new List<Book>();
             Book toReturn = null;
 			int index = 0;
+			//print list of books with status checked out
 			foreach (Book book in books)
 			{
 				if (book.status == Book.Status.checked_out)
@@ -428,6 +459,7 @@ namespace Midterm_Project
 					Console.WriteLine(index + " " + Library.DisplayIndividualBookInformation(book));
 				}
 			}
+            // if theres books to check in we ask which one
 			if (checkedOut.Count > 0)
 			{
 				//print list of books with status checked out
@@ -441,7 +473,7 @@ namespace Midterm_Project
                         break;
                     }
 				}
-                
+        // setting book's values
 				toReturn = checkedOut.Where(b => b.Title == checkedOut[toParse].Title).First();
 				toReturn.status = Status.available;
 				Console.WriteLine($"{toReturn.Title} successfully returned at {DateTime.Now.ToString("MM/dd/yyyy h:mm tt")}. Thank you!");
@@ -450,10 +482,10 @@ namespace Midterm_Project
 			{
 				Console.WriteLine("There are no books checked out!");
 			}
+			// since we've modified our database, write our change to the file
 			WriteIO(books);
 		}
-
-        public static string GetUserInput(string message)//implement a throw into catch for input == null
+        public static string GetUserInput(string message)
         {
             string input = String.Empty;
 
@@ -504,16 +536,13 @@ namespace Midterm_Project
             return input;
         }
 
-        public void WriteIO(List <Book> sortedBooks)//This should be used in place of display information. DisplayInformationIndividualBooks should be used to feed into this IO function
-
-        //ORRRR I dont ever need to readstream. Just use displayfunction.
-        //ORRR just make this a writeIO file and save results after each sort. make sure upon initialization of program, booklist = whats in the write io file
+        public void WriteIO(List <Book> sortedBooks)
         {
             StreamWriter sw;
 
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 			string filePath = currentDirectory + @"\testlist4.txt";
-
+            // loops through all our books in memory and writes them out as values with commas, 
 			sw = new StreamWriter(filePath, false);
 			foreach (Book book in sortedBooks)
 			{
@@ -526,6 +555,7 @@ namespace Midterm_Project
         {
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 			string filePath = currentDirectory + @"\testlist4.txt";
+            // checks if you have a local database, if not it will make one by putting our internal backup into its memory and writing it
             bool fileExist = false;
             try
             {
@@ -537,7 +567,9 @@ namespace Midterm_Project
             {
                 WriteIO(booksFromFile);
 				Console.WriteLine("\nwriting to: " + filePath);
+                // lets user know its placing the file on their pc
 			}
+      // use streamreader to count how many lines (books) in our file
 			double entries = 0;
 			using (StreamReader sr = new StreamReader(filePath))
 			{
@@ -545,21 +577,39 @@ namespace Midterm_Project
 				{
 					entries++;
 				}
-				Console.Write("we have " + entries+" books\n");
+                Console.Write("we have " + entries + " books\n");
+                // this write shows when starting the program your book count
+                // then this loop goes for each line we counted earlier and parses the data to put into memory
 				for (int i = 0; i < entries; i++)
 				{
                     string line = File.ReadLines(filePath).Skip(i).Take(1).First(); //reading each line representing a book and its info, taking the first only to prevent mixing different book info.
-				    string[] lineValues = line.Split(","); //splitting each book info string
-                    books.Add(new Book(lineValues[0], lineValues[1], //title / author
-                    int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year / page from int
+				    string[] lineValues = line.Split(",");
+                    books.Add(new Book(lineValues[0], lineValues[1], //title + author
+                    int.Parse(lineValues[2]), int.Parse(lineValues[3]), // parsing year + page from int
 					(Genre) Enum.Parse(typeof(Genre), lineValues[4]), // parse enum genre
                     (Status) Enum.Parse(typeof(Status), lineValues[5]), // parse status enum
                     DateTime.Parse(lineValues[6]))); // parse datetime
-					}
+				}
                 sr.Close();
 			}
 		}
-
+        public void AddBook()
+        {
+            Console.WriteLine("thanks for looking into donating:");
+            // gets data
+            Console.Write("Title: ");
+            string title = Console.ReadLine();
+			Console.Write("Author: ");
+			string author = Console.ReadLine();
+            Console.Write("Year: ");
+			int year = int.Parse(Console.ReadLine());
+			Console.Write("Pages: ");
+			int pages = int.Parse(Console.ReadLine());
+            Genre genre = getValidGenre();
+			//throws it into memory and writes it
+			books.Add(new Book(title, author, pages, year, genre, Book.Status.available, current));
+            WriteIO(books);
+        }
         public void Burn()
         {
 			string currentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;  //finding where the program directery is located on each individual machine.
@@ -601,20 +651,3 @@ namespace Midterm_Project
 
     }
 }
-
-/*Write a console program which allows a user to search a library catalog and check out books.
-Your solution must include some kind of a book class with a title, author, status, and due date if checked out.
-Status should be On Shelf or Checked Out (or other statuses you can imagine). 
-12 items minimum; All stored in a list.
-Allow the user to:
-Display the entire list of books.  Format it nicely.
-Search for a book by author.
-Search for a book by title keyword.
-Select a book from the list to check out.
-If it’s already checked out, let them know.
-If not, check it out to them and set the due date to 2 weeks from today.
-Return a book.  (You can decide how that looks/what questions it asks.)
-
-Optional enhancements:
-(Moderate)When the user quits, save the current library book list (including due dates and statuses) to the text file so the next time the program runs, it remembers.
-*/
