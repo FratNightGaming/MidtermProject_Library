@@ -169,30 +169,30 @@ namespace Midterm_Project
 			while (getGenre) {
                 try
                 {
-					string choice = GetUserInput("Which genre would you like? or type genres for a list :)");
-					if (choice == "genres")
-                    {
-                        foreach (Genre type in Enum.GetValues(typeof(Genre)))
-                        {
-							int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
-                            runCount++;
-                            if (runCount > genreCount)
-                            {
-								Console.Write($"{type}.");
-                                Console.WriteLine();
-							}
-                            else
-                            {
-                                Console.Write($"{type}, ");
-                            }
-                            continue;
-                        }
-                    }
-                    else
-                    {
-						genre = (Genre)Enum.Parse(typeof(Genre), choice);
-						getGenre = false;
+			string choice = GetUserInput("Which genre would you like? or type genres for a list :)");
+			if (choice == "genres")
+                    	{
+				foreach (Genre type in Enum.GetValues(typeof(Genre)))
+				{
+					int genreCount = Enum.GetNames(typeof(Genre)).Length - 1;
+					runCount++;
+					if (runCount > genreCount)
+					{
+						Console.Write($"{type}.");
+						Console.WriteLine();
 					}
+					else
+					{
+						Console.Write($"{type}, ");
+					}
+					continue;
+				}
+                    	}
+                    	else
+                    	{
+				genre = (Genre)Enum.Parse(typeof(Genre), choice);
+				getGenre = false;
+		    	}
                 }
                 catch (ArgumentException)
                 {
@@ -240,9 +240,7 @@ namespace Midterm_Project
             {
                 CheckOut(booksByGenre);
 			}
-		}
-
-        
+		}  
 
         public List<Book> SortBooksByTitle(List<Book> books)
         {
@@ -393,12 +391,12 @@ namespace Midterm_Project
 				}
 				if (CurrentBook.status == Book.Status.checked_out)
 				{
-					Console.WriteLine("This book is checked out! please be more careful");//display when due date is
+					Console.WriteLine("This book is checked out! Please be more careful");//display when due date is
 				}
 
 				else if (CurrentBook.status == Book.Status.hold)
 				{
-					Console.WriteLine("This book is on hold! please be more careful");//display when hold ends
+					Console.WriteLine("This book is on hold! Please be more careful");//display when hold ends
 				}
 
 				else if (CurrentBook.status == Book.Status.available)
@@ -437,11 +435,11 @@ namespace Midterm_Project
 			if (checkedOut.Count > 0)
 			{
 				//print list of books with status checked out
-				int toParse = Library.GetUserInt("what book are you returning?") - 1;
+				int toParse = Library.GetUserInt("What book are you returning?") - 1;
                 while (toParse+1 > index || toParse < 0)
                 {
                     Console.WriteLine("that isnt an index!");
-					toParse = Library.GetUserInt("what book are you returning?") - 1;
+					toParse = Library.GetUserInt("What book are you returning?") - 1;
                     if (!(toParse + 1 > index || toParse < 0))
                     {
                         break;
@@ -455,7 +453,7 @@ namespace Midterm_Project
 			}
 			else
 			{
-				Console.WriteLine("theres no books checked out!");
+				Console.WriteLine("There are no books checked out!");
 			}
 			WriteIO(books);
 		}
@@ -575,7 +573,7 @@ namespace Midterm_Project
                 File.Delete(filePath);
                 books = null;
             }  
-            Console.WriteLine("look at what you've done.");
+            Console.WriteLine("Look at what you've done.");
 		}
 
 	}
