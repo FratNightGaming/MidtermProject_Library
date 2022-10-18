@@ -13,7 +13,7 @@ namespace Midterm_Project
             bool start = true;
             while (start = true)
             {
-                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, or (5) Exit: ");
+                string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, or (6) Exit: ");
 
                 if (input == "1" || input == "display" || input == "display book" || input == "display books" || input == "d" || input == "db")
                 {
@@ -111,7 +111,7 @@ namespace Midterm_Project
                 {
                     library1.ReturnBook();
 				}
-                else if (input == "5" || input == "exit" || input == "e" || input == "esc")
+                else if (input == "6" || input == "exit" || input == "e" || input == "esc")
                 {
                     if (start == library1.Repeat())
                     { 
