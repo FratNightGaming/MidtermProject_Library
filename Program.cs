@@ -11,7 +11,7 @@ namespace Midterm_Project
             library1.ReadIO();
             // always loop to keep asking user what they want to do
             bool start = true;
-            while (start = true)
+            while (start == true)
             {
                 string input = Library.GetUserInput("What would you like to do? (1)Display Books, (2)Sort List, (3)Search, (4)Check-in, (5)Donate a book, or (6) Exit: ");
                 if (input == "1" || input == "display" || input == "display book" || input == "display books" || input == "d" || input == "db")
